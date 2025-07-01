@@ -1,0 +1,13 @@
+<form method="post">
+    <h2>{{ 'newsletter.title'|trans }}</h2>
+    <div class="row">
+        <div class="txt">
+        <input type="email" class="txt" name="email" required placeholder="{{ 'newsletter.field.email'|trans }}" />
+        </div>
+        <input type="submit" value="{{ 'newsletter.send'|trans }}" class="button" />
+    </div>
+    <label>
+        <input type="checkbox" required name="rules" />
+        <span>{{ 'newsletter.privacy'|trans }}</span>
+    </label>
+</form>
