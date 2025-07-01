@@ -1,0 +1,160 @@
+{% if module.vars.type in ['news'] and (app.request.attributes.get('_route_params').id is defined and app.request.attributes.get('_route_params').id == '1' or app.request.pathInfo starts with '/node-1') %}
+{# Sekcja szkoleń z całkowicie nowymi nazwami klas #}
+<div class="duc-trainings-section">
+    {# Pasek wyszukiwania szkoleń z nową strukturą #}
+    <div class="duc-search-bar">
+        <form action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="GET" class="duc-search-form">
+            <div class="duc-search-query">
+                <input type="text" name="query" placeholder="Wyszukaj szkolenie..." value="{{ app.request.query.get('query') }}">
+            </div>
+            
+            <div class="duc-search-category">
+                <select name="category">
+                    <option value="">Wybierz kategorię szkolenia</option>
+                    <option value="1" {% if app.request.query.get('category') == '1' %}selected{% endif %}>Przebaczenie</option>
+                    <option value="2" {% if app.request.query.get('category') == '2' %}selected{% endif %}>Asertywność</option>
+                    <option value="3" {% if app.request.query.get('category') == '3' %}selected{% endif %}>Rozwój osobisty</option>
+                </select>
+            </div>
+            
+            <div class="duc-search-submit">
+                <button type="submit">SZUKAJ</button>
+            </div>
+            
+            <div class="duc-search-sort">
+                <select name="sort">
+                    <option value="">Sortuj szkolenia wg...</option>
+                    <option value="date" {% if app.request.query.get('sort') == 'date' %}selected{% endif %}>Data publikacji</option>
+                    <option value="title" {% if app.request.query.get('sort') == 'title' %}selected{% endif %}>Tytuł</option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+    {# Wyświetlanie siatki szkoleń #}
+    <div class="duc-trainings-grid">
+        {% set news = load_nodes(module.vars.type, {
+            orderBy : {publishDate:'desc'},
+            max: module.vars.limit|default(6),
+            pagging: true,
+            where : {
+                public : true
+            },
+            page : app.request.query.get('page', 1)
+        }) %}
+        
+        {% for card in news.list %}
+            <div class="duc-training-box">
+                <div class="duc-training-card">
+                    <div class="duc-training-image">
+                        <img src="{{ card.vars.photo ? asset(card.vars.photo.path) : asset('images/default.jpg') }}" alt="Brak zdjęcia">
+                       <div class="duc-play-icon">
+                            <div class="duc-play-circle">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="duc-training-content">
+                        <h3 class="duc-training-title">{{ card.vars.title }}</h3>
+                        <div class="duc-training-desc">
+                            {{ card.vars.lead|nl2br }}
+                        </div>
+                        <a href="{{ card.url }}" class="duc-training-button">
+                            Obejrzyj szkolenie <i class="fa-solid fa-play"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# Brak wyników #}
+    {% if news.list|length == 0 %}
+        <div class="duc-no-results">
+            <p class="duc-no-results-title">Nie znaleziono szkoleń spełniających kryteria wyszukiwania.</p>
+            <p class="duc-no-results-message">Spróbuj zmienić frazę wyszukiwania lub przeglądaj wszystkie dostępne szkolenia.</p>
+        </div>
+    {% endif %}
+
+    {# Paginacja #}
+    {% if news.pages|length > 1 %}
+        <div class="duc-pagination">
+            {% include 'nodes/pagging.html.twig' with news %}
+        </div>
+    {% endif %}
+
+    {# Przycisk "Wczytaj więcej szkoleń" #}
+    {% if news.list|length >= module.vars.limit|default(6) %}
+        <div class="duc-load-more">
+            <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}">WCZYTAJ WIĘCEJ SZKOLEŃ</a>
+        </div>
+    {% endif %}
+</div>
+
+{% elseif module.vars.type in ['news', 'blog', 'press', 'gallery'] %}
+<section class="text text-content">
+<div class="news-list">
+{% set news = load_nodes(module.vars.type, {
+    orderBy : {publishDate:'desc'},
+    max: module.vars.limit|default(9),
+    pagging: true,
+    where : {
+        public : true
+    },
+    page : app.request.query.get('page', 1)
+}) %}
+<div class="list">
+    {% for item in news.list  %}
+    <div class="news-item" data-aos="fade-right" data-aos-duration="1000"  data-aos-delay="{{ (loop.index0 % 3)*300 }}">
+        <span class="photo" style="background-image: url('{{ (item.vars.photo ? item.vars.photo.path : cycle(['images/nophoto.jpg', 'images/nophoto2.jpg'], loop.index))|imagine_filter('blog') }}')"></span>
+        <span class="nb"></span>
+        <span class="over">
+            <span class="tit">{{ item.vars.title }}</span>
+            <span class="lead">
+                {{ item.vars.lead|nl2br }}
+            </span>
+            <a href="{{ item.url }}" class="more">
+                więcej
+            </a>
+        </span>
+        <span class="nb last"></span>
+    </div>
+    {% endfor %}
+</div>
+{% include 'nodes/pagging.html.twig' with news %}
+</div>
+</section>
+{% elseif module.vars.type in ['reference'] %}
+<section class="text text-content">
+<div class="news-list">
+{% set news = load_nodes(module.vars.type, {
+    orderBy : {publishDate:'desc'},
+    max: module.vars.limit|default(6),
+    pagging: true,
+    where : {
+        public : true
+    },
+    page : app.request.query.get('page', 1)
+}) %}
+<div class="reference reference-simple">
+    {% for row in news.list|batch(3) %}
+    <div class="wrap">
+        <div class="list">
+        {% for item in row %}
+        <div class="item-wrap" >
+            <div class="item ">
+                <h5>{{ item.vars.title }}</h5>
+                <p>{{ item.vars.lead|nl2br }}</p>
+                <a href="{{ item.url }}">więcej...</a>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include 'nodes/pagging.html.twig' with news %}
+</div>
+</section>
+{% endif %}

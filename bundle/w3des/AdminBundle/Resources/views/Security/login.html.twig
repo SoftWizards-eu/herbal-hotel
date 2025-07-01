@@ -1,0 +1,30 @@
+{% extends '@w3desAdmin/base.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block body %}
+
+<div class="box">
+    <form action="{{ path('admin.login') }}" method="post">
+        <h1>{{ _cms.settings.title  }}</h1>
+        <div class="form">
+            <h2>{{ 'signin'|trans }}</h2>
+            <label for="username">{{ 'email'|trans }}:</label>
+            <input type="text" id="username" class="text" name="_username" value="{{ last_username }}" placeholder="{{ 'email'|trans }}" />
+            <div class="clear-fix"></div>
+            <label for="password" >{{ 'password'|trans }}:</label>
+            <input type="password" placeholder="******" id="password" class="text" name="_password" />
+            <div class="clear-fix"></div>
+            {#
+                If you want to control the URL the user
+                is redirected to on success (more details below)
+                <input type="hidden" name="_target_path" value="/account" />
+            #}
+            <button type="submit"><span class="submit">{{ 'signin'|trans }}</span></button>
+            {% if error %}
+    <div class="err">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block page_title %}{{ 'signin'|trans }}{% endblock %}
+{% block body_class %}signin-page{% endblock %}

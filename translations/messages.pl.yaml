@@ -1,0 +1,56 @@
+newsletter:
+  title: Newsletter
+  description: Zapisz się i otrzymuj informacje o aktualnych promocjach!
+  subscribe: Zapisz się
+  rules: 'Akceptuję warunki świadczenia usługi Newsletter przez Herbal Hotel'
+  
+  field:
+    email: Adres e-mail
+    name: Firma/Imię i nazwisko
+    vat_id: NIP
+  send: Zapisz się
+  privacy: Zapoznałem się z Polityką prywatności oraz wyrażam zgodę na przetwarzanie moich danych
+rules: Regulamin
+privacy_policy: Polityka prywatności
+
+blog:
+  more: 'Dowiedz się więcej'
+  list: 'Wszystkie wpisy'
+job:
+  title: 'Aktualnie poszukujemy'
+  position: Stanowisko
+  publication: 'Data publikacji'
+  empty: 'Brak dostępnych ofert'
+offer:
+  subtitle: Elastyczne
+  title: >
+    Pakiety
+    tematyczne  
+reservation: Rezerwuj
+room_reservation: Zarezerwuj ten pokój
+home: Strona główna
+contact_us: Skontaktuj się z nami
+send: Wyślij
+
+partners:
+  subtitle: Nasi
+  title: Partnerzy
+  
+voucher:
+  title: Vouchery
+guest:
+  subtitle: Mówią
+  title: O nas nasi goście
+  
+form:
+  name: Imię i nazwisko
+  choice: Branża
+  content: Treść
+  email: E-Mail
+  location: Lokalizacja
+  phone: Numer telefonu
+  subject: Temat
+  message: Treść wiadomości
+  invalid_captcha: Nieprawidłowa captcha
+  send: Wyślij
+  

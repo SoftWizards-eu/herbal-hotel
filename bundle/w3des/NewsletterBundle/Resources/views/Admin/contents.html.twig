@@ -1,0 +1,74 @@
+{% extends '@w3desAdmin/layout.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block page_title %}
+Newsletter - treści
+{% endblock %}
+{% block content %}
+<h1>
+    {{ block('page_title') }}
+</h1>
+<div class="content-box">
+    <nav class="navigation breadcrumbs button-row sticky-top">
+        <div class="left">
+            <a href="{{ url('admin.newsletter.content.add') }}"><i class="icon-plus"></i> Dodaj</a>
+        </div>
+    </nav>
+
+     
+    <dynamic-table url="{{ url('admin.newsletter.contents.json') }}" :columns="[
+        {
+            data: 'id',
+            title: 'ID',
+            sortable: true,
+            filter: true,
+            width: 100,
+            align: 'right'
+        },
+        {
+            data: 'title',
+            title: 'Tytuł',
+            sortable: true,
+            filter: false,
+            width: 100,
+            align: 'center'
+        },
+        {
+            data: 'createdAt',
+            title: 'Utworzony',
+            sortable: true,
+            filter: true,
+            width: 200
+        },
+        {
+            data: 'sendAt',
+            title: 'Wysłany',
+            sortable: true,
+            filter: true,
+            width: 200
+        }
+        
+    ]"
+      :row-actions="true"
+      @row-click="window.location = '{{ url('admin.newsletter.content.edit', {id :'_id_'}) }}'.replace('_id_', $event.id)"
+    >
+        <template v-slot:isenabled="{value}">
+            <i class="icon-checkbox-checked2 green" v-if="value"></i>
+            <i class="icon-checkbox-unchecked red" v-else></i>
+        </template>
+        <template v-slot:row-actions="{row}">
+            <a :href="'{{ url('admin.newsletter.content.edit', {id :'_id_'}) }}'.replace('_id_', row.id)" class="button button-small" v-tooltip="'edycja'" v-if="row.id != {{ app.user.id }}">
+                <i class="icon-pencil7"></i>
+            </a>
+            <confirm-link :href="'{{ url('admin.newsletter.content.remove', {id :'_id_'}) }}'.replace('_id_', row.id)" v-if="row.id != {{ app.user.id }}">
+                <span class="button button-small button-red" v-tooltip="'usuń'">
+                    <i class="icon-bin"></i>
+                </span>
+            </confirm-link>
+        </template>
+    </dynamic-table>
+
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}

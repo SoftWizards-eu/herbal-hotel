@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ sett('home_meta_title') }}{% endblock %}
+{% block meta_description %}{{ sett('home_meta_description') }}{% endblock %}
+{% block meta_keywords %}{{ sett('home_meta_keywords')}}{% endblock %}
+
+{% block body_class %}home{% endblock %}
+{% block before_content %}
+{% set slider = load_nodes('slider').list %}
+{% set cfg = [] %}
+{% for slide in slider %}
+{% set cfg = cfg|merge([{
+    content: slide.vars.has('content') ? slide.vars.content : null,
+    url: slide.vars.url,
+    photo : slide.vars.photo ? {path : asset(slide.vars.photo.path), mime: slide.vars.photo.mime} : null,
+    second : slide.vars.second_photo ? {path : asset(slide.vars.second_photo.path), mime: slide.vars.second_photo.mime} : null,
+    mobile_photo : slide.vars.mobile_photo ? {path : asset(slide.vars.mobile_photo.path), mime: slide.vars.mobile_photo.mime} : null,
+    mobile_second : slide.vars.mobile_second ? {path : asset(slide.vars.mobile_second.path), mime: slide.vars.mobile_second.mime} : null
+}]) %}
+{% endfor %}
+{% endblock %}
+{% block content %}
+<div id="content-start">
+ <div class="prezentacja-szkolenia">
+  <div class="zawartość-szkolenia">
+    <div class="tekst-szkolenia">
+      <h2 class="training-title-2">Tytuł szkolenia</h2>
+      <p class="training-description-2">Krótki opis szkolenia..., qui blanditis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
+      <div class="training-metadata">
+        <div><span class="bold">Czas trwania:</span> 1:01:51:1</div>
+        <div><span class="bold">Data premiery:</span> 2011</div>
+      </div>
+      <div class="training-price-wrapper-2">
+        <span class="training-price-2">349,00 zł</span>
+        <button class="training-buy-button-2">KUP SZKOLENIE <span class="ikona-przycisku"><i class="fa-solid fa-play arrow-watch"></i></span></button>
+      </div>
+    </div>
+    <div class="wideo-szkolenia">
+      <div class="kontener-wideo">
+        <img src="{{ asset('build/images/back-onas.jpg') }}" alt="Szkolenie wideo" class="miniatura-wideo">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div id="content" style="background-color:rgba(255,255,255,0)">
+
+    
+    
+
+     <div class="reference">
+        <h3 class="black-title"><a href="#">Polecane szkolenia <img src="{{ asset('build/images/logo-ducinaltum-fundacjakopia.svg') }}" alt="Logo" class="circle"></a></h3>
+       <div class="training-wrapper">
+    <h1 class="training-title">Lorem ipsum dolor sit amet</h1>
+    
+    <div class="training-container">
+        <div class="training-left-column">
+            <p class="training-text">Opis szkolenia... qui blanditis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
+            
+            <p class="training-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            
+            <p class="training-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accu-</p>
+        </div>
+        
+        <div class="training-right-column">
+            <p class="training-text">usantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+            
+            <p class="training-text">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis</p>
+            
+            <div class="training-price-section">
+            <div class="training-price-wrapper">
+                <span class="training-price-label">CENA:</span>
+                <span class="training-price">349,00 zł</span>
+            </div>
+            <button class="training-buy-button">KUP SZKOLENIE   <span class="ikona-przycisku"><i class="fa-solid fa-play arrow-watch"></i></span></button>
+        </div>
+        </div>
+    </div>
+</div>
+    </div>
+    <div class="deep-bar">
+        <div class="deep-img"></div>
+    </div>
+    {% set news = load_node('page',{
+            where: {
+                public : true
+            },
+            module: {
+                content : ['list', {
+                    type: 'news'
+                }]
+            }
+        }) %}
+        {% set newsUrl = news.url|default('#') %}
+    {% set items = load_nodes('news', {
+        orderBy : { publishDate:'desc' },
+        where: {
+            public : true
+        },
+        max: 3,
+        rand: true
+    }).list %}
+
+    <div class="reference">
+        <h3 class="black-title"><a href="{{ newsUrl }}">Polecane szkolenia <img src="{{ asset('build/images/logo-ducinaltum-fundacjakopia.svg') }}" alt="Logo" class="circle"></a></h3>
+        <div class="duc-trainings-section" style="margin-top: 80px;">
+        <div class="duc-trainings-grid">
+        {% for item in items %}
+            <div class="duc-training-box">
+                <div class="duc-training-card">
+                    <div class="duc-training-image">
+                        <img src="{{ asset(item.vars.photo.path) }}" alt="{{ item.vars.title }}">
+                        <div class="duc-play-icon">
+                            <div class="duc-play-circle">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="duc-training-content">
+                        <h3 class="duc-training-title">{{ item.vars.title }}</h3>
+                        <div class="duc-training-desc">
+                            {{ item.vars.lead|nl2br }}
+                        </div>
+                        <a href="{{ item.url }}" class="duc-training-button">
+                            Obejrzyj szkolenie <i class="fa-solid fa-play"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+         <div class="w-100-btn">
+                <a href="{{ newsUrl }}"><button class="btn-center" >ZOBACZ WSZYSTKIE SZKOLENIA</button></a>
+            </div>
+    </div>
+    
+
+</div>
+
+{% endblock %}

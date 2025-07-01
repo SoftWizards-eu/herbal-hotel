@@ -1,0 +1,84 @@
+{% extends '@w3desAdmin/layout.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block page_title %}
+Newsletter - subskrybenci
+{% endblock %}
+{% block content %}
+<h1>
+    {{ block('page_title') }}
+</h1>
+<div class="content-box">
+    <nav class="navigation breadcrumbs button-row sticky-top">
+        <div class="left">
+            
+            <a href="{{ url('admin.newsletter.subscribers.import') }}" class="alink"><i class="icon-upload"></i> Import</a>
+   <a href="{{ url('admin.newsletter.subscribers.export') }}" class="alink"><i class="icon-download"></i> Export</a>
+        </div>
+    </nav>
+
+     
+    <div id="grid"></div>
+
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+$(function() {
+    $('#grid').jsGrid({
+        width: '100%',
+        filtering: true,
+        sorting: true,
+        paging: true,
+        editing: true,
+        autoload: true,
+        deleteConfirm: function(item) {
+            return "Czy na pewno chcesz to zrobić?";
+        },
+        onItemEditing : function(args) {
+            args.cancel = true;
+        },
+        onItemEditing : function(args) {
+            args.cancel = true;
+        },
+        onItemDeleted : function(args) {
+            window.location = '{{url("admin.newsletter.subscriber.remove", { id : '@id@' })|raw}}'.replace(/@id@/g, args.item.id);
+            args.cancel = true;
+        },
+        pageLoading: true,
+        controller : {
+            loadData : function(filter) {
+                var d = jQuery.Deferred();
+                $.ajax({
+                    url : '{{url("admin.newsletter.subscribers.json")}}',
+                    dataType : 'json',
+                    data : filter
+                }).done(function(response) {
+                    d.resolve(response);
+                });
+
+                return d.promise();
+            }
+        },
+        fields : [
+           {name: 'email', title: 'E-mail', type: 'text'},
+           {name: 'createdAt', title: 'Data dodania'},
+           {type: 'control', itemTemplate: function(value, item) {
+               var $result = $([]);
+
+               //if(item.Editable) {
+               //    $result = $result.add(this._createEditButton(item));
+               //}
+
+               //if(item.Deletable) {
+                   $result = $result.add(this._createDeleteButton(item));
+               //}
+
+               return $result;
+           }}
+        ]
+    });
+});
+
+</script>
+{% endblock %}

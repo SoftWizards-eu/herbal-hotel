@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ node.vars.meta_title|default(node.vars.title) }}{%endblock%}
+{% block content %}
+<div class="page-content">
+    {% set item = knp_menu_get_current_item(knp_menu_get('app.menu')) %}
+    {% set breadcrumbs = knp_menu_get_breadcrumbs_array(item) %}
+    <div class="wrap">
+        <ul class="breadcrumbs">
+        {% for breadcrumb in breadcrumbs %}
+            {% if breadcrumb.label != 'root' %}
+                <li><a href="{{ breadcrumb.uri }}">{{ breadcrumb.label }}</a><i class="icon-arrow-right4"></i></li>
+            {% endif %}
+        {% endfor %}
+         <li><a href="{{ node.url }}">{{ node.vars.title }}</a><i class="icon-arrow-right4"></i></li>
+        </ul>
+        
+    </div>
+    <h1 class="title">{{ node.vars.title }}</h1>
+    {% for m in modules.content %}
+        <section class="node-module">{{ m|raw }}</section>
+    {% endfor %}
+</div>
+    <div class="clear-fix"></div>
+{% endblock %}
+
+{% block meta_keywords %}{{ node.vars.meta_keywords|default('') }}{% endblock %}
+{% block meta_description %}{{ node.vars.meta_description|default('') }}{% endblock %}
+

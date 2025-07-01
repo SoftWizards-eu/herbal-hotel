@@ -1,0 +1,54 @@
+{% set serviceForm = serviceForm|default(offer_form('service')) %}
+{% set offerForm = offerForm|default(offer_form('offer')) %}
+{% set id = module.id|default('main') %}
+<div class="price-block">
+    <div class="wrap">
+        <div class="left">
+            <h5>Potrzebujesz nietypowego rozwiązania</h5>
+            <h6>Przygotujemy dla Ciebie indywidulany projekt</h6>
+        </div>
+        <div class="right">
+            <a href="#" class="btn" @click.prevent.stop="modal = 'module_{{ id }}'">Zamów wycenę</a>
+        </div>
+        {% if app.session.flashbag.has('offer' ~ id) %}
+                {% for flash in app.session.flashbag.get('offer' ~ id) %}
+                    <alert text="{{ flash }}"></alert>
+                {% endfor %}
+        {% endif %}    
+    </div>
+    <offer-module class="offer-module" @close="modal = null" v-show="modal == 'module_{{ id }}'">
+        <template v-slot:service>
+            {{ form_start(serviceForm) }}
+            <div class="row">
+                {{ form_row(serviceForm.name) }}
+                {{ form_row(serviceForm.email) }}
+            </div>
+            <div class="row">
+                {{ form_row(serviceForm.phone) }}
+                {{ form_row(serviceForm.location) }}
+            </div>
+            {{ form_widget(serviceForm) }}
+             <div class="btns">
+                <button class="btn">Wyślij</button>
+            </div>
+            {{ form_end(serviceForm) }}
+        </template>
+        <template v-slot:offer>
+            {{ form_start(offerForm) }}
+            <div class="row">
+                {{ form_row(offerForm.name) }}
+                {{ form_row(offerForm.email) }}
+            </div>
+            <div class="row">
+                {{ form_row(offerForm.phone) }}
+                {{ form_row(offerForm.location) }}
+            </div>
+            
+            {{ form_widget(offerForm) }}
+            <div class="btns">
+                <button class="btn">Wyślij</button>
+            </div>
+            {{ form_end(offerForm) }}
+        </template>
+    </offer-module>
+</div>

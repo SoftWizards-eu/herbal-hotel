@@ -1,0 +1,15 @@
+<section class="text text-content">
+    <div class="wrap">
+        {% if app.request.attributes.get('_route') == 'single_post_route' %}
+            <div class="single-post">
+                <h1>{{ module.vars.title }}</h1>
+                <p>{{ module.vars.publishDate|date('d.m.Y') }}</p>
+                <div class="content">
+                    {{ module.vars.content|raw }}
+                </div>
+            </div>
+        {% else %}
+            {{ module.vars.content|auto_blank|raw }}
+        {% endif %}
+    </div>
+</section>

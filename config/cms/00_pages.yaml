@@ -1,0 +1,80 @@
+w3des_admin: 
+  nodes:
+    menu: 
+      locale: true
+      icon: 'database-menu'
+      title: 'name'
+      sortable: true
+      maxDepth: 2
+      embed: 
+        field: node
+        type: ['page']
+      sections:
+        statics:
+          fields:
+            name: 
+              grid: true
+              index: true
+              options: 
+                label_format: node.field.name
+            node:
+              type: w3des\AdminBundle\Form\Type\EmbedNodeType
+    footer: 
+      locale: true
+      icon: 'database-menu'
+      title: 'name'
+      sortable: true
+      maxDepth: 2
+      embed: 
+        field: node
+        type: ['page']
+      sections:
+        statics:
+          fields:
+            name: 
+              grid: true
+              index: true
+              options: 
+                label_format: node.field.name
+            node:
+              type: w3des\AdminBundle\Form\Type\EmbedNodeType
+    page:
+      autoClean: true
+      locale: true
+      redirectEmpty: content
+      url: title
+      title: title
+      index: true
+      sortable: false
+      enabled: false
+      sections:
+        statics:
+          fields: 
+            public:
+              type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+              default: true
+            title: 
+              grid: true
+              index: true
+
+            url: ~
+            external_url: ~
+        content:
+          modules:
+            - { type: 'w3des\AdminBundle\NodeModule\ContentModule', default: true }
+            - { type: 'w3des\AdminBundle\NodeModule\GalleryModule', default: false }
+            - { type: 'w3des\AdminBundle\NodeModule\ListModule', default: false }
+            - { type: 'w3des\AdminBundle\NodeModule\ContactModule', default: false }
+
+        #bottom:
+        #  modules:
+        #    - { type: 'w3des\AdminBundle\NodeModule\MapModule', default: false }
+        seo:
+          fields: 
+            meta_title: ~
+            meta_keywords: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            meta_description:
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+              
+    

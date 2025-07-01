@@ -1,0 +1,47 @@
+{% trans_default_domain "admin" %}
+{% set link = link|default(false) %}
+<dynamic-table url="{{ url('admin.node.json', {type : type}) }}" :columns="[
+    {
+        data: 'id',
+        title: 'ID',
+        sortable: true,
+        filter: true,
+        width: 100,
+        align: 'right'
+    }
+    {% for field in cfg.grid %}
+    {% set def = fields[field] %}
+    ,{
+        data: {{ def.name|json_encode }},
+        title: '{{('node.field.'~field)|trans}}',
+        sortable : true,
+        filter : true,
+        width : 300
+    }
+    {% endfor %}
+]"
+  {% if cfg.defaultSort != '_pos' %}order-by="{{ cfg.defaultSort }}" :desc="{{ (cfg.defaultSortDirection != 'asc')|json_encode }}"{% endif %}
+  :row-actions="true"
+  @row-click="window.location = '{{ url('admin.node.edit', {id :'_id_', type : type}) }}'.replace('_id_', $event.id)"
+>
+    <template v-slot:isenabled="{value}">
+        <i class="icon-checkbox-checked2 green" v-if="value"></i>
+        <i class="icon-checkbox-unchecked red" v-else></i>
+    </template>
+    <template v-slot:row-actions="{row}">
+        {% if link %}
+        <a :href="'{{ link ? url('admin.node.add', {embedType: type, embedId :'_id_', type : target, parent: app.request.get('parent') }) : url('admin.node.add', {id :'_id_', type : type}) }}'.replace('_id_', row.id)" class="ico-link" v-tooltip="'powiąż'">
+            <i class="icon-link1"></i>
+        </a>
+        {% else %}
+        <a :href="'{{ url('admin.node.edit', {id :'_id_', type : type}) }}'.replace('_id_', row.id)" class="ico-link" v-tooltip="'edycja'">
+            <i class="icon-edit1"></i>
+        </a>
+        <confirm-link :href="'{{ url('admin.node.remove', {id :'_id_', type : type}) }}'.replace('_id_', row.id)">
+            <span class="ico-link" v-tooltip="'usuń'">
+                <i class="icon-delete1"></i>
+            </span>
+        </confirm-link>
+        {% endif %}
+    </template>
+</dynamic-table>

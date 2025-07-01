@@ -1,0 +1,68 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+  router.request_context.scheme: '%env(SCHEME)%'
+  router.request_context.base_url: '%env(BASE_URL)%'
+  asset.request_context.base_path: '%router.request_context.base_url%'
+  asset.request_context.secure: '%env(bool:SECURE)%'
+  admin.locale: pl 
+  page.default_locale: pl
+  page.locales: ['pl']
+  google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
+services:
+
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+          $rootDir: '%kernel.project_dir%'
+          $publicDir: '%kernel.project_dir%/public'
+          $defaultLocale: '%page.default_locale%'
+          $pageLocales: '%page.locales%'
+          $kernel: '@kernel'
+          $indexName: '%env(ELASTICSEARCH_INDEX)%'
+          $environment: '%kernel.environment%'
+   
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base KernelInterfacecontroller class
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+    app.menu_builder:
+      class: App\Menu\MenuBuilder
+      public: true
+      tags:
+         - name: 'knp_menu.menu_builder' 
+           method: 'createMenu' 
+           alias: 'app.menu'
+         - name: 'knp_menu.menu_builder' 
+           method: 'createFooter' 
+           alias: 'app.footer'
+         - name: 'knp_menu.menu_builder' 
+           method: 'createAny' 
+           alias: 'app.any'
+    App\EventSubscriber\LocaleSubscriber:
+        arguments: ['%kernel.default_locale%']
+            
+    App\Validator\IsTrueValidatorV3:
+        class: App\Validator\IsTrueValidatorV3
+        public: true
+        arguments:
+            - '%ewz_recaptcha.enabled%'
+            - '%ewz_recaptcha.private_key%'
+            - '%ewz_recaptcha.score_threshold%'
+            - '@request_stack'
+            - '@logger'
+        tags:
+            - { name: validator.constraint_validator, alias: 'ewz_recaptcha.v3.true' }

@@ -1,0 +1,83 @@
+w3des_admin:
+  settings:
+    home:
+      intro:
+        fields:
+          intro_content: 
+            type: 'w3des\AdminBundle\Form\Type\CKEditorType'
+            default: '<h2><span style="color:#c61d22">PR</span> JAK SZTUKA <span style="color:#c61d22;">ORIGAMI</span></h2><p>„Dobry PR jest niczym wyrafinowana sztuka tworzenia origami. Niby każdy mógłby to robić ale mało kto osiąga doskonałe efekty. Budując strategie wizerunkowe bazuję na rzetelnej wiedzy, znajomości mediów i analizie rynku.</p><p>Mówię NIE nijakości i przeciętności. Stawiam na wyszukany smak, celne słowo i wielowymiarowy obraz. Działaniami PR zajmuję się od 17 lat, to mój zawód i moja pasja”</p><p><i>Agnieszka Majewska-Kunat,</i><br><i>Ekspertka PR, Trenerka Biznesu, Kulturoznawczyni.</i></p>'
+            options:
+              contentClass : 'text-content intro-content'
+      seo:
+        fields:
+          home_meta_title:
+            options:
+              label_format: settings.meta_title
+          home_meta_description:
+            type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            options:
+              label_format: settings.meta_description
+          home_meta_keywords:
+            type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            options:
+              label_format: settings.meta_keywords
+      boxes:
+        fields:
+          box_title_1: ~
+          box_url_1: ~
+          #box_photo_1:
+          #  type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+          #  options:
+          #    dir: 'box'
+          box_text_1:
+            type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            
+          box_title_2: ~
+          box_url_2: ~
+          #box_photo_2:
+          #  type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+          #  options:
+          #    dir: 'box'
+          box_text_2:
+            type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            
+          box_title_3: ~
+          box_url_3: ~
+          #box_photo_3:
+          #  type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+          #  options:
+          #    dir: 'box'
+          box_text_3:
+            type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            
+          box_title_4: ~
+          box_url_4: ~
+          #box_photo_4:
+          #  type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+          #  options:
+          #    dir: 'box'
+          box_text_4:
+            type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+    
+    footer:
+      
+      footer:
+        type: 'w3des\AdminBundle\Form\Type\CKEditorType'
+        options:
+          contentClass : 'text-content footer-about-text'
+    
+    #social:
+    #  facebook: ~
+    #  tiktok: ~
+    #  linked: ~
+    #  goldenline: ~
+    other:
+      analytics:
+        locale: false
+        type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+      googlemap_key:
+        locale: false
+      mail_from: ~
+      mail_from_name: ~
+      mail_to: ~
+      

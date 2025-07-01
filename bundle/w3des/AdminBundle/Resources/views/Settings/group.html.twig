@@ -1,0 +1,18 @@
+{% extends '@w3desAdmin/layout.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block page_title %}{{ 'settings'|trans }} - {{ ('settings.'~group)|trans }}{% endblock %}
+{% block content %}
+<h1>{{ block('page_title') }}</h1>
+
+{{ form_start(form) }}
+<div id="form">
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+</div>
+<nav class="navigation breadcrumbs button-row sticky-bottom">
+    <div class="left">
+        <input class="submit button" type="submit" name="" value="{{ 'save'|trans }}"/>
+    </div>
+ </nav>
+{{ form_end(form) }}   
+{% endblock %}

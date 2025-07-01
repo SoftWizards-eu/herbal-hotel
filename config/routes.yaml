@@ -1,0 +1,18 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+elfinder:
+     resource: "@FMElfinderBundle/Resources/config/routing.yaml"
+     prefix: /admin/elfinder
+
+w3des_admin:
+    resource: "@w3desAdminBundle/Controller/"
+    prefix:   /admin
+    type: annotation
+    
+
+    
+nodes:
+    type: node
+    resource: .

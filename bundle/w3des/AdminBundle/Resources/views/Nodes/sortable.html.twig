@@ -1,0 +1,6 @@
+{% set link = link|default(false) %}
+{% if items|length == 0 %}
+<div class="alert">Lista jest pusta</div>
+{% else %}
+<node-tree :nodes="{{ items|json_encode }}" :link="{{ link|json_encode }}" :max-depth="{{ cfg.maxDepth }}" :embed="{{ cfg.embed.type|json_encode }}"></node-tree>
+{% endif %}

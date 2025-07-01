@@ -1,0 +1,21 @@
+{% extends '@w3desAdmin/layout.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block page_title %}
+{{ ('node.'~type)|trans }}, dodaj do {{ ('node.'~target)|trans|lower }}
+{% endblock %}
+{% block content %}
+
+<h1>
+    {{ block('page_title') }}
+</h1>
+
+<div class="content-box">
+    <p>
+        {% if not cfg.sortable %}
+        {% include '@w3desAdmin/Nodes/grid.html.twig' with { items : items, level : 1, cfg : cfg, type : type, fields : fields, link: true } %}
+        {% else %}
+        {% include '@w3desAdmin/Nodes/sortable.html.twig' with { items : items, level : 1, cfg : cfg, type : type, fields : fields, link: true } %}
+        {% endif %}
+    </p>
+</div>
+{% endblock %}

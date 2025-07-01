@@ -1,0 +1,9 @@
+#!/bin/bash
+git pull
+php74 /usr/bin/composer.phar install -o
+#php71 ./bin/console doctrine:migrations:migrate -n
+php74 ./bin/console cache:clear --env=prod
+php74 ./bin/console assets:install --symlink
+php74 ./bin/console elfinder:install
+php74 ./bin/console doctrine:migrations:migrate -n
+

@@ -1,0 +1,24 @@
+w3des_admin:
+  nodes:
+    partners:
+      sortable: true
+      locale: true
+      icon: 'film'
+      enabled: false
+      maxDepth: 1
+      title: title
+      sections:
+        statics:
+          fields: 
+            public:
+              type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+              default: true
+            title:
+              grid: true
+            url: ~
+            photo:
+              type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+              options:
+                dir: 'partners'
+
+  

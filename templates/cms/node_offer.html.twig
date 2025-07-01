@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ node.vars.meta_title|default(node.vars.title) }}{%endblock%}
+{% block content %}
+{% for m in modules.top %}
+    {{ m|raw }}
+{% else %}
+{% set photo = 'build/images/offer_bg.jpg' %}
+{% if node.vars.photo %}
+    {% set photo = node.vars.photo.path %}
+{% endif %}
+<h1 class="main-title" style="background-image: url('{{ asset(photo) }}')"><span>{% if node.vars.icon %}<i class="icon-{{ node.vars.icon }}"></i><br />{% endif %}{{ node.vars.title }}</span></h1>
+{% endfor %}
+<div class="page-content offer-content">
+    {% set item = knp_menu_get_current_item(knp_menu_get('app.menu')) %}
+    {% set breadcrumbs = knp_menu_get_breadcrumbs_array(item) %}
+    <div class="wrap">
+        <nav class="social-list">
+            <a href="http://www.facebook.com/share.php?u={{ app.request.uri|url_encode }}"><i class="icon-facebook"></i></a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ app.request.uri|url_encode }}"><i class="icon-linkedin"></i></a>
+            <a href="https://www.addtoany.com/share?url={{ app.request.uri|url_encode }}"><i class="icon-share3"></i></a>
+            <a href="mailto:?subject=JSCooling&amp;body={{ app.request.uri|url_encode }}"><i class="icon-envelop4"></i></a>
+        </nav>
+        <ul class="breadcrumbs">
+        {% for breadcrumb in breadcrumbs %}
+            {% if breadcrumb.label != 'root' %}
+                <li><a href="{{ breadcrumb.uri }}">{{ breadcrumb.label }}</a><i class="icon-arrow-right4"></i></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+    {% for m in modules.content %}
+        <section class="node-module">{{ m|raw }}</section>
+    {% endfor %}
+</div>
+<div class="clear-fix"></div>
+{% endblock %}
+
+{% block meta_keywords %}{{ node.vars.meta_keywords|default('') }}{% endblock %}
+{% block meta_description %}{{ node.vars.meta_description|default('') }}{% endblock %}
+

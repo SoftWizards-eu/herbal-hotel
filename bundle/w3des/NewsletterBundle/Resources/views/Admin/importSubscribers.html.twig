@@ -1,0 +1,24 @@
+{% extends '@w3desAdmin/layout.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block page_title %}
+Import subskrybentów
+{% endblock %}
+{% block content %}
+<h1>
+    {{ block('page_title') }}
+</h1>
+
+<div class="content-box">
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+    <nav class="breadcrumbs button-row sticky-bottom">
+        <div class="left">
+            <input class="button submit" type="submit" name="" value="zapisz"/>
+        </div>
+        
+     </nav>
+    
+ {{ form_end(form) }}   
+ </div>
+{% endblock %}

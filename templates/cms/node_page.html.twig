@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ node.vars.meta_title|default(node.vars.title) }}{%endblock%}
+{% block content %}
+
+<div class="page-content">
+    {% set item = knp_menu_get_current_item(knp_menu_get('app.menu')) %}
+    {% set breadcrumbs = knp_menu_get_breadcrumbs_array(item) %}
+    <div class="wrap">
+        <ul class="breadcrumbs">
+        {% for breadcrumb in breadcrumbs %}
+            {% if breadcrumb.label != 'root' %}
+                <li><a href="{{ breadcrumb.uri }}">{{ breadcrumb.label }}</a><i class="icon-arrow-right4"></i></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+    <h1 class="title">{{ node.vars.title }}</h1>
+    {% set groups = [] %}
+    {% set module = null %}
+    {% set inHistory = false %}
+    {% for index, m in modules.content %}
+        {% set module = node.modules.content[index] %}
+        {% if inHistory %}
+            {% if module.type == 'module.history' %}
+                {{ m|raw }}
+            {% else %}
+            </div></div>
+            <section class="node-module">{{ m|raw }}</section>
+            {% set inHistory = false %}
+            {% endif %}
+        {% else %}
+            {% if module.type == 'module.history' %}
+            {% set inHistory = true %}
+            <div class="node-module company-history">
+                <div class="wrap">
+                    <span class="line"></span>
+            {{ m|raw }}
+            {% else %}
+            <section class="node-module">{{ m|raw }}</section>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    {% if inHistory %}
+        </div>
+        </div>
+    {% endif %}
+</div>
+    <div class="clear-fix"></div>
+{% endblock %}
+
+{% block meta_keywords %}{{ node.vars.meta_keywords|default('') }}{% endblock %}
+{% block meta_description %}{{ node.vars.meta_description|default('') }}{% endblock %}
+

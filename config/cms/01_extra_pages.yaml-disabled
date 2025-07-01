@@ -1,0 +1,38 @@
+w3des_admin: 
+  nodes:
+    other:
+      sortable: true
+      locale: true
+      redirectEmpty: content
+      icon: 'edit'
+      url: title
+      title: title
+      index: true
+      enabled: true
+      maxDepth: 2
+      sections:
+        statics:
+          fields: 
+            public:
+              type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+              default: true
+            title: 
+              grid: true
+              index: true
+            url: ~
+        content:
+          modules:
+            - { type: 'w3des\AdminBundle\NodeModule\ContentModule', default: true }
+            - { type: 'w3des\AdminBundle\NodeModule\GalleryModule', default: false }
+            - { type: 'w3des\AdminBundle\NodeModule\MapModule', default: false }
+        #bottom:
+        #  modules:
+        #    - { type: 'w3des\AdminBundle\NodeModule\MapModule', default: false }
+        seo:
+          fields: 
+            meta_title: ~
+            meta_keywords: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            meta_description:
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+    

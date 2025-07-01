@@ -1,0 +1,117 @@
+node.field.page: "Adres funpage'a"
+node.field.app_id: "APP Secret"
+node.info: Slogany
+node.field.color: "Kolor html (#ffffff)"
+node.field.icon: Ikona
+node.training: Szkolenia
+node.icos: Ikony
+node.logos: Loga
+node.other: Strony dodatkowe
+node.field.phone: telefon
+settings.linked: LinkedIn
+settings.goldenline: Golden Line
+settings.tiktok: TikTok
+node.pages: Menu
+node.field.subtitle: Podtytuł
+node.blog_category: Blog - kategorie
+node.room: Pokoje
+node.offer: Oferta
+node.field.home: Strona główna
+node.job: Oferty pracy
+
+node.press: Press room
+node.gallery: Galerie
+node.reference: Referencje
+node.footer: Stopka
+
+settings.map: Mapa
+settings.map_lat: Latitude
+settings.map_lng: Longitude
+settings.map_text: Treść dymka
+settings.map_container: Treść
+
+settings.mail_apply_success_admin_title: "Mail po zgłoszeniu uczestnictwa - tytuł - admin"
+settings.mail_apply_success_admin_content: "Mail po zgłoszeniu uczestnictwa - treść - admin"
+settings.mail_apply_success_user_title: "Mail po zgłoszeniu uczestnictwa - tytuł - użytkownik"
+settings.mail_apply_success_user_content: "Mail po zgłoszeniu uczestnictwa - treść - użytkownik"
+
+
+settings.box_title_1: Box 1 - tytuł
+settings.box_text_1: Box 1 - text
+settings.box_link_1: Box 1 - link
+settings.box_url_1:   Box 1 - url
+settings.box_photo_1: Box 1 - obrazek
+
+settings.box_title_2: Box 2 - tytuł
+settings.box_text_2: Box 2 - text
+settings.box_link_2: Box 2 - link
+settings.box_url_2:   Box 2 - url
+settings.box_photo_2: Box 2 - obrazek
+
+settings.box_title_3: Box 3 - tytuł
+settings.box_text_3: Box 3 - text
+settings.box_link_3: Box 3 - link
+settings.box_url_3:   Box 3 - url
+settings.box_photo_3: Box 3 - obrazek
+
+settings.box_title_4: Box 4 - tytuł
+settings.box_text_4: Box 4 - text
+settings.box_link_4: Box 4 - link
+settings.box_url_4:   Box 4 - url
+settings.box_photo_4: Box 4 - obrazek
+
+
+settings.phone: Telefon
+settings.phone_time: Telefon czas pracy
+node.field.intro: Intro
+node.field.year: Rok
+
+node.field.date_from: Od
+node.field.date_to: Do
+node.field.place: Miejsce
+node.field.available: Zapisy
+node.field.thumb: Miniaturki
+node.field.external_url: Zewnętrzny URL
+
+settings.social: Social
+settings.intro_photo: Obrazek
+
+settings.intro_url: URL
+settings.footer_address: Adres
+settings.footer_phone: Telefony
+settings.footer_location: Adres
+
+settings.twitter: Twitter
+settings.instagram: Instagram
+
+settings.newsletter: Newsletter
+settings.rodo: RODO
+
+node.field.products: Produkty
+node.voucher: Vouchery
+node.guest: Opinie gości
+settings.home_products: Produkty
+settings.featured: Promowane
+node.field.file: Plik
+node.partners: Partnerzy
+
+settings.video: Video
+settings.video_url: URL
+settings.video_content: Tresć
+settings.video_button: Przycisk
+settings.video_title: Tytuł
+
+settings.welcome_content: Witaj - treść
+settings.welcome_url: Witaj - URL
+settings.history_content: Historia - treść
+settings.history_url: Historia - URL
+settings.garden_content: Ogród - treść
+settings.garden_url: Ogród - URL
+settings.room_content: Pokoje - treść
+settings.room_url: Pokoje - URL
+settings.wine_content: Winiarnia - treść
+settings.wine_url: Winiarnia - URL
+
+module.title_content: Treść z tytułem
+module.offer_form: Formularz ofertowy
+

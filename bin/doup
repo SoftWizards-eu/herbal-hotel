@@ -1,0 +1,14 @@
+#!/bin/bash
+git pull
+php74 /usr/bin/composer2.phar install -o
+#php71 ./bin/console doctrine:migrations:migrate -n
+php74 ./bin/console cache:clear --env=prod
+php74 ./bin/console assets:install --symlink
+php74 ./bin/console elfinder:install
+php74 ./bin/console doctrine:migrations:migrate -n
+
+/opt/plesk/node/16/bin/node /opt/plesk/node/16/bin/yarn install
+/opt/plesk/node/16/bin/node /opt/plesk/node/16/bin/yarn build
+cd bundle/w3des/AdminBundle/Resources/assets
+/opt/plesk/node/16/bin/node /opt/plesk/node/16/bin/yarn install
+/opt/plesk/node/16/bin/node /opt/plesk/node/16/bin/yarn build

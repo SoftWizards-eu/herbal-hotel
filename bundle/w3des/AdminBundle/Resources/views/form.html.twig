@@ -1,0 +1,207 @@
+{% block ckeditor_widget %}
+    <div class="{{ form.vars.contentClass }}"><ckeditor {% if value is defined %} value="{{ value }}"{% endif %} :config="{{ config|json_encode }}" {{ block('widget_attributes') }}></ckeditor></div>
+{% endblock %}
+{% block integer_widget %}
+    {% set type = type|default('number') %}
+    {{ block('form_widget_simple') }}
+{% endblock integer_widget %}
+{% block adv_file_row %}
+    <div class="form-group adv-file">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        <div class="up">
+        {{ form_row(form.file) }}
+        </div>
+        <div class="remove">
+        {% if form.remove is defined %}
+        {{ form_row(form.remove) }}
+        <small ><a href="{{ asset(form.vars.value.path) }}" target="_BLANK">
+        {% if form.vars.value.width > 0 %}<img src="{{ asset(form.vars.value.path) }}" width="80" />{% endif %}
+        <span class="p">{{ form.vars.value.path }}</span></a></small><span class="t"> / {{ form.vars.value.mime }} / </span>
+        {% if form.vars.value.width > 0 %}
+        <span class="s">{{ form.vars.value.width }} x {{ form.vars.value.height }}</span>
+        {% endif %}
+        {% endif %}
+        </div>
+        <div class="clear-fix"></div>
+        
+    </div>
+{% endblock %}
+{% block fieldset_row %}
+    <fieldset class="form-group fieldset">
+        <legend>{{ form_label(form) }}</legend>
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </fieldset>
+{% endblock %}
+{% block gallery_item_row %}
+    <gallery-item class="gallery-item">
+        <span class="close"></span>
+        {% if form.vars.thmb %}
+            {% if form.variables.photo.xx.vars.data.path ends with '.svg' %}
+            <span class="ph"><img src="{{ asset(form.variables.photo.xx.vars.data.path)}}" /></span>
+            {% else %}
+               <span class="ph"><img src="{% if form.variables.photo.xx.vars.data.path %}{{ (form.variables.photo.xx.vars.data.path)| imagine_filter('admin') }}{%else%}__thmb__{% endif %}" /></span>
+            {% endif %}
+        {% else %}
+        <span class="ph" style="height: 30px;">Brak miniaturki</span>
+        {% endif %}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </gallery-item>
+{% endblock %}
+{% block values_widget %}
+    {% if form.vars.sections %}
+        <node-sections prefix="{{ form.parent.vars.id }}" active="{{  app.request.get('tab_position') }}">
+        {% set active = app.request.get('tab_position')|default(false) %}
+        <nav class="tabs">
+        {% for name, section in form.vars.sections %}
+            {% if not active %}
+            {% set active = name %}
+            {% endif %}
+                <a href="#{{ form.vars.id }}_{{ name }}" class="tab-item {{ active == name ? 'active' : '' }}">{{ ('node.section.'~name)|trans({}, 'admin') }}</a>
+        {% endfor %}
+        </nav>
+        
+        {% for name, section in form.vars.sections %}
+            <div id="{{ form.vars.id }}_{{ name }}" class="tab-content" style="display: {{ active == name ? 'block' : 'none' }}">
+                {% for key in section %}
+                    {{ form_row(form.children[key]) }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+        {{- form_rest(form) -}}
+        </node-sections>
+    {% else %}
+        {{ block('form_widget') }}
+    {% endif %}
+{% endblock %}
+{% block value_field_row %}
+    
+    {% if form.children|length < 2 %}
+     {{ form_errors(form) }}
+    {{ form_widget(form) }}
+    {% else %}
+    <div class="form-group">
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+    </div>
+    {% endif %}
+{% endblock %}
+{% block node_module_row %}
+    <node-module :allow-remove="{{ form.vars.allow_remove ? 'true' : 'false' }}" label="{{ form.vars.type|trans({}, 'admin') }}" class="form-group node-module">
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </node-module>
+{% endblock %}
+{% block node_modules_row %}
+    {% set prototypes = {} %}
+    
+    {% for name, m in form.vars.modules %}
+        {% set prototypes = prototypes|merge({
+            (name) : form_row(form.vars.prototype[name])|raw 
+        }) %}
+    {% endfor %}
+    {% set childs = [] %}
+    {% for name, child in form %}
+        {% set childs = childs|merge([{
+            id : name,
+            name: child.vars.type,
+            template: form_row(child)|raw 
+        }]) %}
+    {% endfor %}
+    <node-modules :count="{{ form.children|length }}" :initial="{{ childs|json_encode|escape('html') }}" :prototypes="{{ prototypes|json_encode|escape('html') }}" :modules="{{ form.vars.modules|json_encode }}">
+       <h3>Moduły</h3>
+        {{ form_errors(form) }}
+    </node-modules>
+{% endblock %}
+{% block gallery_widget %}
+    {% set childs = [] %}
+    {% for name, child in form %}
+        {% set childs = childs|merge([{
+            id : name,
+            template: form_row(child)|raw 
+        }]) %}
+    {% endfor %}
+    <gallery class="form-group gallery" dir="{{ form.vars.dir }}" :max="{{ count }}" :thmb="{{ form.vars.thmb|json_encode }}" upload="{{ url('admin.upload') }}" item="{{ form_row(form.vars.prototype)|escape('html') }}"  :initial="{{ childs|json_encode|escape('html') }}">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        <button type="button" class="button upload-button"><i class="icon-upload"></i> wyślij pliki</button>
+        {{- form_rest(form) -}}
+    </gallery>
+{% endblock %}
+{% block tab_row %}
+    <div class="group">
+        <h2>{{ form_label(form) }}</h2>
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}
+{% block form_row -%}
+    <div{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ ' form-group' ~ ((not compound or force_error|default(false)) and not valid ? ' has-error'))|trim})} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+{{- form_errors(form) -}}
+{{- form_help(form) -}}
+    </div>
+{%- endblock form_row %}
+{%- block product_choice_widget -%}
+    <div {{ block('widget_container_attributes') }}>
+    <a href="#" class="prod-show" data-show-all="true">pokaż niedostępne</a><br />
+    <br />
+    {%- for child in form %}
+        {{- form_widget(child) -}}
+        {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+    {% endfor -%}
+    </div>
+{%- endblock product_choice_widget -%}
+{%- block admin_collection_widget -%}
+    {% if prototype is defined and not prototype.rendered %}
+        {%- set attr = attr|merge({'data-prototype': form_row(prototype) }) -%}
+    {% endif %}
+    <collection {{ block('widget_container_attributes') }} :allow-add="{{ allow_add ? 'true' : 'false' }}"  :allow-delete="{{ allow_delete ? 'true' : 'false' }}" :sortable="{{ sortable|json_encode }}" class="collection-type">
+    {% if allow_add %}<button type="button" class="button small-button add-button"><i class="icon-plus-circle"></i> Dodaj</button>{% endif %}
+    <div class="collection-list">
+    {%- for child in form %}
+        <div class="collection-item{% if sortable %} collection-item-sortable{% endif %}">{{- form_row(child) -}} {% if allow_delete %}<button type="button" class="button button-red button-small remove-button"><i class="icon-bin"></i></button>{% endif %}</div>
+    {% endfor -%}
+    </div>
+    </collection>
+{%- endblock admin_collection_widget -%}
+{% block form_help -%}
+    {%- if help is not empty -%}
+        {%- set help_attr = help_attr|merge({class: (help_attr.class|default('') ~ ' help-block')|trim}) -%}
+        <span id="{{ id }}_help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
+            {%- if translation_domain is same as(false) -%}
+                {%- if help_html is same as(false) -%}
+                    {{- help -}}
+                {%- else -%}
+                    {{- help|raw -}}
+                {%- endif -%}
+            {%- else -%}
+                {%- if help_html is same as(false) -%}
+                    {{- help|trans(help_translation_parameters, translation_domain) -}}
+                {%- else -%}
+                    {{- help|trans(help_translation_parameters, translation_domain)|raw -}}
+                {%- endif -%}
+            {%- endif -%}
+        </span>
+    {%- endif -%}
+{%- endblock form_help %}
+{% block custom_ewz_recaptcha_widget %}
+{% apply spaceless %}
+  {% set id = id ~ form.vars.action_name|default('form') %}
+  {% if form.vars.ewz_recaptcha_enabled %}
+    <recaptcha-token uri="{{ form.vars.ewz_recaptcha_api_uri }}" api="{{ form.vars.public_key }}" id="{{ id }}" action="{{ form.vars.action_name|default('form') }}"></recaptcha-token>
+    
+    {% if form.vars.ewz_recaptcha_hide_badge %}
+      <link rel="stylesheet" href="{{ asset('/bundles/ewz_recaptcha/css/recaptcha.css') }}">
+    {% endif %}
+
+
+    {{ form_label(form) }}
+    {{ form_errors(form) }}
+    {{ block('hidden_widget') }}
+  {% endif %}
+{% endapply %}
+{% endblock %}

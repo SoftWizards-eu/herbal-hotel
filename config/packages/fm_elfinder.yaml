@@ -1,0 +1,19 @@
+fm_elfinder:
+    assets_path: assets
+    instances:
+        default:
+            locale: "%admin.locale%" # defaults to current request locale
+            editor: ckeditor
+#            editor_template: '@w3desAdmin/elfinder.html.twig'
+            connector:
+                #debug: true|false # defaults to false
+                roots:       # at least one root must be defined, defines root filemanager directories
+                    uploads:
+                        #show_hidden: true|false # defaults to false, hides dotfiles
+                        driver: LocalFileSystem
+                        path: uploads/userfiles
+                        url: 'uploads/userfiles'
+                        #upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        #upload_deny: ['all']
+                        upload_max_size: 10M
+                        upload_allow: ['all']

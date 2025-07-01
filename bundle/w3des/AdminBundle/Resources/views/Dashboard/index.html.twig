@@ -1,0 +1,13 @@
+{% extends '@w3desAdmin/layout.html.twig' %}
+{% block page_title %}Dashboard{% endblock %}
+{% block content %}
+{% set menu = knp_menu_get('admin_menu') %}
+<div class="dashboard">
+    {% for child in menu.children %}
+    <a href="{{ child.uri }}">
+        <span><i class="icon-{{ child.extra('ico') }}"> </i></span>
+        <strong>{{ child.label }}</strong>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

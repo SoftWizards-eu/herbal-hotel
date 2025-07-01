@@ -1,0 +1,10 @@
+w3des_admin:
+  modules:
+    w3des\AdminBundle\NodeModule\ListModule: 
+      options:
+        choices:
+          node.news: news
+          #node.press: press
+          #node.blog: blog
+          #node.reference: reference
+          node.gallery: gallery

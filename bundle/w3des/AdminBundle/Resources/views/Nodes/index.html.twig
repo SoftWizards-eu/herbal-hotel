@@ -1,0 +1,31 @@
+{% extends '@w3desAdmin/layout.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block page_title %}
+{{ ('node.'~type)|trans }}
+{% endblock %}
+{% block content %}
+
+<h1>
+    <span class="icon-wrap">
+        <i class="icon-{{ cfg.icon }}"></i>
+    </span> {{ block('page_title') }}
+</h1>
+
+<nav class="navigation breadcrumbs button-row sticky-top">
+    <div class="left">
+        {% if cfg.embed.enabled %}
+            <embed-node-button @selected="window.location = '{{ url('admin.node.add', { type: type, embedType: '__type__' }) }}'.replaceAll(/__type__/g, $event)" :embed="{{ cfg.embed.type|json_encode }}" type="button" class="button">Dodaj <i class="icon-addfile2"></i></embed-node-button>
+            <embed-node-button @selected="window.location = '{{ url('admin.node.link', { type: type, embedType: '__type__' }) }}'.replaceAll(/__type__/g, $event)" :embed="{{ cfg.embed.type|json_encode }}" type="button" class="button">Powiąż <i class="icon-link1"></i></embed-node-button>
+        {% else %}
+            <a href="{{ url('admin.node.add', { type: type }) }}" class="button">Dodaj <i class="icon-addfile1"></i></a>
+        {% endif %}
+    </div>
+</nav>
+<p>
+    {% if not cfg.sortable %}
+    {% include '@w3desAdmin/Nodes/grid.html.twig' with { items : items, level : 1, cfg : cfg, type : type, fields : fields } %}
+    {% else %}
+    {% include '@w3desAdmin/Nodes/sortable.html.twig' with { items : items, level : 1, cfg : cfg, type : type, fields : fields } %}
+    {% endif %}
+</p>
+{% endblock %}

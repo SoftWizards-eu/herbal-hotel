@@ -1,0 +1,51 @@
+# See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+liip_imagine:
+    # valid drivers options include "gd" or "gmagick" or "imagick"
+    driver: "imagick"
+    
+    loaders:
+        default:
+            chain:
+              loaders:
+                - file
+        file:
+          filesystem:
+            data_root: '%kernel.project_dir%/public'
+    filter_sets:
+        cache: ~
+        admin:
+          quality: 80
+          filters:
+              auto_rotate: ~
+              strip: ~
+              thumbnail: { size: [150, 150], mode: "inset" }
+              background: { size: [150, 150], position: "center", color: "#ffffff" }
+        producer:
+            quality: 75
+            filters:
+                thumbnail: { size: [100, 35], mode: "inset" }
+                background: { size: [100, 35], position: "left", color: "#ffffff" }
+        blog:
+            quality: 75
+            filters:
+                thumbnail: { size: [640, 640], mode: "outbound" }
+                background: { size: [640, 640], position: "center", color: "#ffffff" }
+                
+
+                
+        node_gallery_outbound:
+          quality: 80
+          filters:
+              auto_rotate: ~
+              strip: ~
+              thumbnail: { size: [360, 360], mode: "outbound" }
+              background: { size: [360, 360], position: "center", color: "#ffffff" }      
+        node_gallery_inset:
+          quality: 80
+          filters:
+              thumbnail: { size: [360, 360], mode: "inset" }
+              background: { size: [360, 360], position: "center", color: "#ffffff" }
+              
+
+
+    

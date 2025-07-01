@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ node.vars.meta_title|default(node.vars.title) }}{%endblock%}
+{% block content %}
+{% for m in modules.top|default([]) %}
+    {{ m|raw }}
+{% else %}
+{% set photo = 'build/images/offer_bg.jpg' %}
+{% if node.vars.top_photo %}
+    {% set photo = node.vars.top_photo.path %}
+{% endif %}
+
+<h1 class="main-title" style="background-image: url('{{ asset(photo) }}')"><span>{% if node.vars.icon %}<i class="icon-{{ node.vars.icon }}"></i><br />{% endif %}{{ node.vars.title }}</span></h1>
+{% endfor %}
+<div class="page-content">
+    {% set item = knp_menu_get_current_item(knp_menu_get('app.menu')) %}
+    {% set breadcrumbs = knp_menu_get_breadcrumbs_array(item) %}
+    <div class="wrap">
+        
+        <ul class="breadcrumbs">
+        {% for breadcrumb in breadcrumbs %}
+            {% if breadcrumb.label != 'root' %}
+                <li><a href="{{ breadcrumb.uri }}">{{ breadcrumb.label }}</a><i class="icon-arrow-right4"></i></li>
+            {% endif %}
+        {% endfor %}
+            <li><a href="#">Realizacje</a> <i class="icon-arrow-right4"></i></li>
+            <li><a href="{{ node.url }}">{{ node.vars.title }}</a> <i class="icon-arrow-right4"></i></li>
+        </ul>
+    </div>
+    <section class="realization-list-section">
+        <div class="wrap">
+            <nav>
+                {% set category = load_nodes('category', {where : { public : true}}).list %}
+                {% for cat in category %}
+                <a href="{{ cat.url }}" {% if cat.id == node.id %} class="active"{% endif %}><i class="icon-{{cat.vars.icon}}"></i> {{ cat.vars.title }}</a>
+                {% endfor %}
+            </nav>
+            {% if node.vars.lead %}
+            <div class="text text-content">
+                {{ node.vars.lead|raw }}
+            </div>
+            {% endif %}
+            {% set news = load_nodes('realization', {
+                orderBy : {publishDate:'desc'},
+                max: 6,
+                pagging: true,
+                where : {
+                    public : true,
+                    category: node.id
+                }, 
+                page : app.request.query.get('page', 1)
+            }) %}
+            <div class="realization-list">
+                {% for item in news.list  %}
+                <a href="{{ item.url }}" class="realization-item">
+                    <span class="photo" {% if item.vars.photo %}style="background-image: url('{{ item.vars.photo.path|imagine_filter('realization') }}')"   {% endif %}></span>
+                    <span class="over">
+                        <span class="ico">
+                            {% if item.vars.category %}
+                            <i class="icon-{{ item.vars.category.vars.icon }}"></i>
+                            {% endif %}
+                        </span>
+                        <span class="tit">{{ item.vars.title }}</span>
+                        <span class="more">
+                            Więcej <i class="icon-arrow-right4"></i>
+                        </span>
+                    </span>
+                </a>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </section>
+    {% for m in modules.content|default([]) %}
+        <section class="node-module">{{ m|raw }}</section>
+    {% endfor %}
+</div>
+    <div class="clear-fix"></div>
+{% endblock %}
+
+{% block meta_keywords %}{{ node.vars.meta_keywords|default('') }}{% endblock %}
+{% block meta_description %}{{ node.vars.meta_description|default('') }}{% endblock %}
+

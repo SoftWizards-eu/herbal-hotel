@@ -1,0 +1,49 @@
+{
+    "devDependencies": {
+        "@openfonts/exo-2_cyrillic": "^1.44.2",
+        "@openfonts/exo-2_latin": "^1.44.2",
+        "@openfonts/exo-2_latin-ext": "^1.44.2",
+        "@openfonts/ubuntu_cyrillic": "^1.44.2",
+        "@openfonts/ubuntu_latin": "^1.44.2",
+        "@openfonts/ubuntu_latin-ext": "^1.44.2",
+        "@symfony/webpack-encore": "^1.5.0",
+        "axios": "^0.21.0",
+        "core-js": "^3.0.0",
+        "oembed-component": "^1.1.5",
+        "regenerator-runtime": "^0.13.2",
+        "sass": "^1.28.0",
+        "sass-loader": "^9.0.1",
+        "vin-validator": "^1.0.0",
+        "vindec": "^2.7.2",
+        "vinidator": "^1.0.1",
+        "vue": "^2.5",
+        "vue-agile": "^1.1.3",
+        "vue-axios": "^3.1.3",
+        "vue-cookie-law": "^1.13.3",
+        "vue-cool-lightbox": "^2.7.1",
+        "vue-image-lightbox": "^7.2.0",
+        "vue-lazyload": "^1.3.3",
+        "vue-loader": "^15",
+        "vue-silentbox": "^2.4.5",
+        "vue-slick-carousel": "^1.0.6",
+        "vue-template-compiler": "^2.6.12",
+        "vue-text-highlight": "^2.0.10",
+        "webpack-notifier": "^1.6.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "set NODE_OPTIONS=--openssl-legacy-provider && encore dev-server --port 9010",
+        "dev": "set NODE_OPTIONS=--openssl-legacy-provider && encore dev",
+        "watch": "set NODE_OPTIONS=--openssl-legacy-provider && encore dev --watch",
+        "build": "set NODE_OPTIONS=--openssl-legacy-provider && encore production --progress"
+    },
+    "optionalDependencies": {
+        "fsevents": "^2.1.2"
+    },
+    "dependencies": {
+        "aos": "^2.3.4",
+        "dotenv-webpack": "^7.0.2",
+        "v-video-embed": "^1.0.8"
+    }
+}

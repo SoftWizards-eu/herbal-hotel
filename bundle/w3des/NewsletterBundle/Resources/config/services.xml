@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="true" autoconfigure="true" public="false">
+        </defaults>
+        <prototype namespace="w3des\NewsletterBundle\" resource="../../*" exclude="../../{Entity,Repository}"/>
+        <prototype namespace="w3des\NewsletterBundle\Controller\" resource="../../Controller">
+            <tag name="controller.service_arguments"/>
+        </prototype>
+        <service id="w3des\NewsletterBundle\EventListener\AdminMenuListener">
+            <argument type="service" id="translator" />
+            <tag name="kernel.event_listener" event="admin.menu" method="onMenuConfigure"/>
+        </service>
+        <service id="w3des\NewsletterBundle\Util">
+            <argument type="service" id="doctrine.orm.default_entity_manager"></argument>
+            <argument type="service" id="request_stack"></argument>
+            <argument type="service" id="router"></argument>
+            <argument type="service" id="settings"></argument>
+            <argument type="service" id="mailer"></argument>
+            <argument key="$defaultScheme">%router.request_context.scheme%</argument>
+            <argument key="$defaultHost">%router.request_context.host%</argument>
+        </service>
+    </services>
+</container>

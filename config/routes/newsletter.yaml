@@ -1,0 +1,9 @@
+w3des_newsletter:
+    resource: "@w3desNewsletterBundle/Controller/NewsletterController.php"
+    type: annotation
+    prefix:   /{_locale}/newsletter
+w3des_newsletter_admin:
+    resource: "@w3desNewsletterBundle/Controller/AdminController.php"
+    type: annotation
+    prefix:   /admin
+    

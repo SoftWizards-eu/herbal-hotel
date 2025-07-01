@@ -1,0 +1,60 @@
+{% extends '@w3desAdmin/layout.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block page_title %}
+{{ ('node.'~type)|trans }} - {{ node.id ? ' Edycja' : 'Dodaj' }}
+{% if node.id %}
+"{{ node.vars.get(cfg.title) }}"
+{% endif %}
+{% endblock %}
+{% block content %}
+<p class="pull-right">
+    
+</p>
+<h1>
+    {{ block('page_title') }}
+</h1>
+
+
+<nav class="navigation breadcrumbs button-row sticky-top">
+    <div class="left">
+        <a href="{{ url('admin.node', { type: type }) }}"><i class="icon-circle-left2"></i> Powrót</a>
+        {% set tmp = node.parent %}
+        {% for i in 1..1000 %}
+        {% if tmp %}
+        / <a href="{{ url('admin.node.edit', {type : type, id : tmp.id}) }}">{{ tmp.vars.get(cfg.title) }}</a>
+        {% set tmp = tmp.parent %}
+        {% endif %}
+        {% endfor %}
+        {% if node.id %}
+        / <a href="{{ url('admin.node.edit', {type : type, id : node.id}) }}">{{ node.vars.get(cfg.title) }}</a>
+        {% endif %}
+    </div>
+</nav>
+{{ form_start(form) }}
+<div id="form">
+    <input type="submit" style="visibility: hidden; position: absolute; z-index: -1; right: 0px;" />
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+</div>
+<nav class="breadcrumbs button-row sticky-bottom">
+    <div class="left">
+        <button class="button button" type="submit" name="save" value="ignore">
+             {{ 'save'|trans }} <i class="icon-save"></i>
+        </button>
+        <button class="button button" type="submit" name="save" value="close">
+             {{ 'save_close'|trans }} <i class="icon-saveclose"></i>
+        </button>
+        
+    </div>
+    <div class="right">
+        {% if node.id %}
+        <confirm-link href="{{ url('admin.node.remove', {id : node.id, type: node.type}) }}">
+            <span class="button">
+                <i class="icon-delete1"></i> {{ 'remove'|trans }}
+            </span>
+        </confirm-link>
+        {% endif %}
+    </div>
+ </nav>
+{{ form_end(form) }}   
+{% endblock %}

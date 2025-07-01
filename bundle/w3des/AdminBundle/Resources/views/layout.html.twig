@@ -1,0 +1,81 @@
+{% extends '@w3desAdmin/base.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block page_title %}
+{{ 'admin'|trans }}
+{% endblock %}
+{% block body_class %}admin-page{% endblock %}
+{% block body %}
+<div id="outer" class="app">
+    <header>
+        <div class="domain">
+            <a href="{% if _cms.settings.domains|length > 0  %}{{ app.request.scheme ~ '://' ~ _cms.settings.domains[0]|default(app.request.host) ~ app.request.baseurl }}{% else %}{{ url('homepage') }}{% endif %}" target="_BLANK"><i class="icon-web"></i> {{ _cms.settings.title  }}</a>
+        </div>
+        <div class="right">
+            {% if _cms.services|length > 1 %}
+            <div class="services with-dropdown">
+                {{ _cms.settings.title }}
+                <ul class="dropdown">
+                    {% for key, sett in _cms.services %}
+                    <li><a href="{{ url('admin.service', {id : key}) }}"> {{ sett.title }} </a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            
+            <div class="version">v6.5.0 / {{ "now"|date('d.m.Y H:i') }}</div>
+            <span class="space"></span>
+            <div class="lang{% if _locales|length > 1 %} with-dropdown{% endif %}">
+                <span class="ico-wrap">
+                    <i class="icon-lang"></i>
+                    <span class="name" title="{{ ('locale.'~app.request.attributes.get('_page_locale'))|trans }}">{{ app.request.attributes.get('_page_locale')|upper }}</span>
+                    <span class="title">{{ 'language'|trans }}</span>
+                </span>
+                {% if _locales|length > 1 %}
+                    <ul class="dropdown">
+                        {% for i in _locales %}
+                        <li>
+                            <a href="{{ url('admin.lang', {lang : i}) }}">{{ ('locale.'~i)|trans }} </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="service with-dropdown">
+                <span class="ico-wrap">
+                    <i class="icon-admin"></i>
+                    <span class="title">{{ app.user.username }}</span>
+                </span>
+            </div>
+            <a href="{{ url('admin.logout') }}" class="ico-wrap">
+                <i class="icon-logout"></i>
+                <span class="title">{{ 'logout'|trans }}</span>
+            </a>
+        </div>
+    </header>
+    <main id="content-container">
+        <div id="sidebar">
+            <div id="menu">
+                {{knp_menu_render('admin_menu', {template : '@w3desAdmin/menu.html.twig'}) }}
+            </div>
+        </div>
+        <div id="content">
+            <div class="admin-content">
+                {% for label, flashes in app.session.flashbag.all %}
+                    {% for flash in flashes %}
+                        <div class="alert alert-{{ label }}">
+                            {{ flash }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </main>
+    <footer>
+        <a href="https://softwizards.eu" target="_BLANK" class="logo"></a>
+        <p>
+            Copyright &copy; {{ "now"|date('Y') }} 
+        </p>
+    </footer>
+</div>
+{% endblock %}

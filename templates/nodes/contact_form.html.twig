@@ -1,0 +1,32 @@
+<section class="contact-form" id="contact{{ module.id }}">
+    <div class="wrap">
+        <div class="left">
+            <h2>{{ 'contact_us'|trans }} </h2>
+                {% for flash in app.session.flashbag.get('info' ~ module.id) %}
+                     <alert text="{{ flash }}"></alert>
+                {% endfor %}
+            
+            {{ form_start(form) }}
+            <input type="hidden" name="_module" value="{{ module.id }}" />
+            {{ form_errors(form) }}
+            
+            <div class="row">
+                {{ form_row(form.name) }}
+                {{ form_row(form.email) }}
+            </div>
+            <div class="row">
+                {{ form_row(form.phone) }}
+                {{ form_row(form.subject) }}
+            </div>
+            
+            
+            <div class="row double-row">
+                {{ form_row(form.content) }}
+            </div>
+            <div class="btns">
+                <input type="submit" name="" class="btn submit" value="{{ 'send'|trans }}"/>
+            </div>
+            {{ form_end(form) }} 
+        </div>
+    </div>
+</section>

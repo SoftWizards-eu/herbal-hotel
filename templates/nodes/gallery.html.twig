@@ -1,0 +1,46 @@
+<div class="node-gallery">
+    {% set thmb = module.vars.thumb %}
+    <div class="bg">
+        {% set urls = [] %}
+        <div class="wrap">
+            <h2 class="nice-title"><span>Galeria </span></h2>
+            <div class="image-list">
+            {% for index, item in module.children %}
+            {% set url = item.vars.url %}
+            <a href="{% if url %}
+                {%- if 'youtube' in url|lower -%}
+                    {% set url= url|youtube_embed %}
+                {%- endif -%}
+                {% set urls = urls|merge({(index) : 
+                    {
+                        src: url,
+                        thumbnail: item.vars.photo.path|imagine_filter(thmb),
+                        description: item.vars.title
+                    }
+                
+                }) %}
+            {%-else-%}
+                {{ asset(item.vars.photo.path) }}
+                {% set urls = urls|merge({(index) : 
+                    {
+                        src: asset(item.vars.photo.path),
+                        thumbnail: item.vars.photo.path|imagine_filter(thmb),
+                        description: item.vars.title
+                    }
+                
+                }) %}
+            {%- endif -%}" @click.stop.prevent="showGal({{ module.id }}, {{ index }})" title="{{ item.vars.title }}"><span class="keep">
+            <img src="{{ item.vars.photo.path|imagine_filter(thmb) }}" />
+            <span class="scale" style="background-image: url({{ item.vars.photo.path|imagine_filter(thmb) }})"></span>
+             {%- if 'youtube' in url|lower -%}
+             <span class="video"></span>
+                {%- endif -%}
+                </span></a>
+            {% endfor %}
+            </div>
+            <div class="clear-fix"></div>
+        </div>
+        <silent-box v-if="gal == {{ module.id }}" :preview-count="0" :start-at="galStart" :gallery="{{ urls|json_encode|e('html_attr') }}" @onClosed="hideGal({{ module.id }})"></silent-box>
+        
+    </div>
+</div>

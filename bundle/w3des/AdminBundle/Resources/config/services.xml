@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="public.dir">%kernel.project_dir%/public</parameter>
+        <parameter key="upload.path">uploads</parameter>
+        <parameter key="admin.locale">pl</parameter>
+    </parameters>
+	<services>
+		<defaults autowire="true" autoconfigure="true" public="false">
+			<bind key="$pageLocales">%page.locales%</bind>
+			<bind key="$uploadPath">uploads</bind>
+			<bind key="$publicDir">%public.dir%</bind>
+			<bind key="$defaultPageLocale">%page.default_locale%</bind>
+			<bind key="$availableLocales">%page.locales%</bind>
+			<bind key="$adminLocale">%admin.locale%</bind>
+		</defaults>
+		<instanceof id="w3des\AdminBundle\Model\NodeModuleInterface"
+			autowire="true">
+			<tag name="node.module" />
+		</instanceof>
+		<prototype namespace="w3des\AdminBundle\" resource="../../*"
+			exclude="../../{Entity,Repository,Resources,Model}" />
+		<prototype namespace="w3des\AdminBundle\Controller\"
+			resource="../../Controller">
+			<tag name="controller.service_arguments" />
+		</prototype>
+		<prototype namespace="w3des\AdminBundle\Form\Type\"
+			resource="../../Form/Type" public="true">
+			<tag name="form.type" />
+		</prototype>
+		<service id="w3des\AdminBundle\EventListener\LocaleListener">
+			<tag name="kernel.event_subscriber" />
+		</service>
+		<service id="w3des\AdminBundle\Menu\AdminMenuBuilder">
+			<tag name="knp_menu.menu_builder" method="createMenu" alias="admin_menu" />
+		</service>
+		<service id="w3des\AdminBundle\Service\Settings" public="true"></service>
+		<service id="settings" alias="w3des\AdminBundle\Service\Settings"
+			public="true"></service>
+		<service id="w3des\AdminBundle\Twig\AdminExtension">
+			<tag name="twig.extension" />
+		</service>
+		<service id="w3des\AdminBundle\Service\Nodes" public="true">
+			<argument key="$defaultLocale">%page.default_locale%</argument>
+		</service>
+		<service id="w3des\AdminBundle\Service\ModuleRegistry" public="true">
+		</service>
+		<service id="nodes" alias="w3des\AdminBundle\Service\Nodes"
+			public="true">
+
+		</service>
+		<service id="values" alias="w3des\AdminBundle\Service\Values"
+			public="true"></service>
+		<service id="w3des\AdminBundle\Request\NodeConverter">
+			<tag name="request.param_converter" priority="-1" converter="node" />
+		</service>
+		<service id="w3des\AdminBundle\Routing\NodeRoutingLoader">
+			<argument key="$locales">%page.locales%</argument>
+			<argument key="$default">%page.default_locale%</argument>
+			<argument key="$prefix">/cms</argument>
+			<tag name="routing.loader" />
+		</service>
+		<service id="w3des\AdminBundle\EventListener\FileRemoveListener">
+            <tag name="doctrine.orm.entity_listener" event="postRemove" lazy="true" entity="w3des\AdminBundle\Entity\File" />
+            <tag name="doctrine.orm.entity_listener" event="prePersist" lazy="true" entity="w3des\AdminBundle\Entity\File" />
+            <tag name="doctrine.orm.entity_listener" event="preUpdate" lazy="true" entity="w3des\AdminBundle\Entity\File" />
+        </service>
+        
+        <service id="w3des\AdminBundle\EventListener\NodeVariableListener">
+            <tag name="doctrine.event_listener" event="onFlush" />
+            <tag name="doctrine.event_listener" event="preFlush" />
+            <tag name="doctrine.event_listener" event="postFlush" />
+        </service>
+	</services>
+
+
+</container>

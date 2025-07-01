@@ -1,0 +1,26 @@
+newsletter:
+  subscribe: Subscribe
+  rules: I accept rules
+  
+rules: Regulamin
+privacy_policy: Polityka prywatności
+reservation: Reservation
+home: Home
+contact_us: Contact Us
+blog: 
+  more: Read More
+  list: All articles
+  
+send: Send
+room_reservation: Reserve this room
+
+partners:
+  subtitle: Our
+  title: Partners
+  
+voucher:
+  title: Vouchers
+  
+guest:
+  subtitle: Talk
+  title: About Us

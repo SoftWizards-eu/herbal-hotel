@@ -1,0 +1,232 @@
+w3des_admin:
+  nodes:
+    news:
+      sortable: false
+      locale: true
+      icon: 'rss'
+      url: title
+      enabled: true
+      maxDepth: 1
+      title: title
+      defaultSort: 'publishDate'
+      defaultSortDirection: 'desc'
+      index: true
+      sections:
+        statics:
+          fields: 
+            public:
+              type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+              default: true
+            title: 
+              grid: true
+              index: true
+            url:
+              grid: true
+            publishDate:
+              type: w3des\AdminBundle\Form\Type\DateTimeType
+              grid: true
+              default: "now"
+            photo:
+              type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+              options:
+                dir: 'news'
+
+            lead: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+              index: true
+            
+        content:
+          modules:
+            - { type: 'w3des\AdminBundle\NodeModule\ContentModule', default: true }
+            - { type: 'w3des\AdminBundle\NodeModule\GalleryModule' }
+        seo:
+          fields: 
+            meta_title: ~
+            meta_keywords: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            meta_description:
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+              
+    press:
+      sortable: false
+      locale: true
+      icon: 'pen'
+      url: title
+      enabled: false
+      maxDepth: 1
+      title: title
+      defaultSort: 'publishDate'
+      defaultSortDirection: 'desc'
+      index: true
+      sections:
+        statics:
+          fields: 
+            public:
+              type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+              default: true
+            title: 
+              grid: true
+              index: true
+            url:
+              grid: true
+            publishDate:
+              type: w3des\AdminBundle\Form\Type\DateTimeType
+              grid: true
+              default: "now"
+            photo:
+              type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+              options:
+                dir: 'press'
+
+            lead: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+              index: true
+            
+        content:
+          modules:
+            - { type: 'w3des\AdminBundle\NodeModule\ContentModule', default: true }
+            - { type: 'w3des\AdminBundle\NodeModule\GalleryModule' }
+        seo:
+          fields: 
+            meta_title: ~
+            meta_keywords: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            meta_description:
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+
+    blog:
+      sortable: false
+      locale: true
+      icon: 'blogger'
+      url: title
+      enabled: false
+      maxDepth: 1
+      title: title
+      defaultSort: 'publishDate'
+      defaultSortDirection: 'desc'
+      index: true
+      sections:
+        statics:
+          fields: 
+            public:
+              type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+              default: true
+            title: 
+              grid: true
+              index: true
+            url:
+              grid: true
+            publishDate:
+              type: w3des\AdminBundle\Form\Type\DateTimeType
+              grid: true
+              default: "now"
+            photo:
+              type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+              options:
+                dir: 'blog'
+
+            lead: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+              index: true
+            
+        content:
+          modules:
+            - { type: 'w3des\AdminBundle\NodeModule\ContentModule', default: true }
+            - { type: 'w3des\AdminBundle\NodeModule\GalleryModule' }
+        seo:
+          fields: 
+            meta_title: ~
+            meta_keywords: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            meta_description:
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+              
+    reference:
+      sortable: false
+      locale: true
+      icon: 'briefcase3'
+      url: title
+      enabled: false
+      maxDepth: 1
+      title: title
+      index: true
+      defaultSort: 'publishDate'
+      defaultSortDirection: 'desc'
+      sections:
+        statics:
+          fields: 
+            public:
+              type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+              default: true
+            title: 
+              grid: true
+              index: true
+            url:
+              grid: true
+            publishDate:
+              type: w3des\AdminBundle\Form\Type\DateTimeType
+              grid: true
+              default: "now"
+
+            lead: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+              index: true
+            
+        content:
+          modules:
+            - { type: 'w3des\AdminBundle\NodeModule\ContentModule', default: true }
+            - { type: 'w3des\AdminBundle\NodeModule\GalleryModule' }
+        seo:
+          fields: 
+            meta_title: ~
+            meta_keywords: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            meta_description:
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+              
+    gallery:
+      sortable: false
+      locale: true
+      icon: 'image'
+      url: title
+      enabled: true
+      maxDepth: 1
+      title: title
+      index: true
+      defaultSort: 'publishDate'
+      defaultSortDirection: 'desc'
+      sections:
+        statics:
+          fields: 
+            public:
+              type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+              default: true
+            title: 
+              grid: true
+              index: true
+            url:
+              grid: true
+            publishDate:
+              type: w3des\AdminBundle\Form\Type\DateTimeType
+              grid: true
+              default: "now"
+            photo:
+              type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+              options:
+                dir: 'blog'
+
+            lead: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+              index: true
+            
+        content:
+          modules:
+            - { type: 'w3des\AdminBundle\NodeModule\ContentModule', default: true }
+            - { type: 'w3des\AdminBundle\NodeModule\GalleryModule' }
+        seo:
+          fields: 
+            meta_title: ~
+            meta_keywords: 
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'
+            meta_description:
+              type: 'Symfony\Component\Form\Extension\Core\Type\TextareaType'

@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ sett('home_meta_title') }}{% endblock %}
+{% block meta_description %}{{ sett('home_meta_description') }}{% endblock %}
+{% block meta_keywords %}{{ sett('home_meta_keywords')}}{% endblock %}
+
+{% block body_class %}home{% endblock %}
+{% block before_content %}
+{% set slider = load_nodes('slider').list %}
+{% set cfg = [] %}
+{% for slide in slider %}
+{% set cfg = cfg|merge([{
+    content: slide.vars.has('content') ? slide.vars.content : null,
+    url: slide.vars.url,
+    photo : slide.vars.photo ? {path : asset(slide.vars.photo.path), mime: slide.vars.photo.mime} : null,
+    second : slide.vars.second_photo ? {path : asset(slide.vars.second_photo.path), mime: slide.vars.second_photo.mime} : null,
+    mobile_photo : slide.vars.mobile_photo ? {path : asset(slide.vars.mobile_photo.path), mime: slide.vars.mobile_photo.mime} : null,
+    mobile_second : slide.vars.mobile_second ? {path : asset(slide.vars.mobile_second.path), mime: slide.vars.mobile_second.mime} : null
+}]) %}
+{% endfor %}
+{#
+{% if slider|length > 0 %}
+{% set slide = slider[0] %}
+<slider class="slider" :cfg="{{ cfg|json_encode }}">
+    
+    <div class="img">
+        {% if 'video' in slide.vars.photo.mime %}
+        <video width="100%" height="100%" autoplay loop>
+          <source src="{{ asset(slide.vars.photo.path|default('video/top.mp4')) }}" type="{{ slide.vars.photo.mime }}" />
+          {% if slide.vars.second_photo %}
+          <source src="{{ asset(slide.vars.second_photo.path|default('video/top.webm')) }}" type="{{ slide.vars.second_photo.mime }}" />
+          {% endif %}
+        </video>
+        {% else %}
+            <div class="bg" style="background-image: url('{{ asset(slide.vars.photo.path) }}')"></div>
+        {% endif %}
+        <span></span>
+    </div>
+    <div class="wrap">
+        <div class="content">
+            <div class="text-content slider-content">
+                {{ (slide.vars.has('content') ? slide.vars.content : null)|auto_blank|raw }}
+            </div>
+        </div>
+    </div>
+    <div class="btn-wrap" style="display:none">
+        <a href="#content-start"><i class="icon-arrow-down4"></i></a>
+    </div>
+</slider>
+{% endif %}
+#}
+{% endblock %}
+{% block content %}
+<div id="content-start">
+    <div class="prezentacja-szkolenia">
+  <div class="zawartość-szkolenia">
+    <div class="tekst-szkolenia">
+      <h2>Tytuł przykładowego szkolenia</h2>
+      <p class="opis-szkolenia">Krótki opis szkolenia... qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
+      <p class="prowadzący-szkolenia">Prowadzący: Siostra Władysława Krasiczynska, Janina Kowalska</p>
+      <button class="przycisk-obejrzyj">
+        OBEJRZYJ SZKOLENIE
+        <span class="ikona-przycisku"><i class="fa-solid fa-play arrow-watch"></i></span>
+      </button>
+    </div>
+    <div class="wideo-szkolenia">
+      <div class="kontener-wideo">
+        <img src="{{ asset('build/images/back-onas.jpg') }}" alt="Szkolenie wideo" class="miniatura-wideo">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div id="content" style="background-color:rgba(255,255,255,0)">
+
+    
+    
+    {% set news = load_node('page',{
+            where: {
+                public : true
+            },
+            module: {
+                content : ['list', {
+                    type: 'news'
+                }]
+            }
+        }) %}
+        {% set newsUrl = news.url|default('#') %}
+    {% set items = load_nodes('news', {
+        orderBy : { publishDate:'desc' },
+        where: {
+            public : true
+        },
+        max: 3,
+        rand: true
+    }).list %}
+     <div class="reference">
+        <h3 class="black-title"><a href="{{ newsUrl }}">Polecane szkolenia <img src="{{ asset('build/images/logo-ducinaltum-fundacjakopia.svg') }}" alt="Logo" class="circle"></a></h3>
+        <div class="duc-trainings-section" style="margin-top: 80px;">
+        <div class="duc-trainings-grid">
+        {% for item in items %}
+            <div class="duc-training-box">
+                <div class="duc-training-card">
+                    <div class="duc-training-image">
+                        <img src="{{ asset(item.vars.photo.path) }}" alt="{{ item.vars.title }}">
+                        <div class="duc-play-icon">
+                            <div class="duc-play-circle">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="duc-training-content">
+                        <h3 class="duc-training-title">{{ item.vars.title }}</h3>
+                        <div class="duc-training-desc">
+                            {{ item.vars.lead|nl2br }}
+                        </div>
+                        <a href="{{ item.url }}" class="duc-training-button">
+                            Obejrzyj szkolenie <i class="fa-solid fa-play"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+         <div class="w-100-btn">
+                <a href="{{ newsUrl }}"><button class="btn-center" >ZOBACZ WSZYSTKIE SZKOLENIA</button></a>
+            </div>
+    </div>
+    <div class="deep-bar">
+        <div class="deep-img"></div>
+    </div>
+
+
+    <div class="reference">
+        <h3 class="black-title"><a href="{{ newsUrl }}">Polecane szkolenia <img src="{{ asset('build/images/logo-ducinaltum-fundacjakopia.svg') }}" alt="Logo" class="circle"></a></h3>
+        <div class="duc-trainings-section" style="margin-top: 80px;">
+        <div class="duc-trainings-grid">
+        {% for item in items %}
+            <div class="duc-training-box">
+                <div class="duc-training-card">
+                    <div class="duc-training-image">
+                        <img src="{{ asset(item.vars.photo.path) }}" alt="{{ item.vars.title }}">
+                        <div class="duc-play-icon">
+                            <div class="duc-play-circle">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="duc-training-content">
+                        <h3 class="duc-training-title">{{ item.vars.title }}</h3>
+                        <div class="duc-training-desc">
+                            {{ item.vars.lead|nl2br }}
+                        </div>
+                        <a href="{{ item.url }}" class="duc-training-button">
+                            Obejrzyj szkolenie <i class="fa-solid fa-play"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+         <div class="w-100-btn">
+                <a href="{{ newsUrl }}"><button class="btn-center" >ZOBACZ WSZYSTKIE SZKOLENIA</button></a>
+            </div>
+    </div>
+    
+
+</div>
+
+{% endblock %}

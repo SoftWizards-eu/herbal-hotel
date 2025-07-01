@@ -1,0 +1,6 @@
+<nav class="breadcrumbs">
+    <a href="{{ url(homepage_route(app.request.locale)) }}">{{ app.request.host }}</a>
+    {% for item in list|default([]) %}
+    <a href="{{ item.url|default('#') }}">{{ item.name }}</a>
+    {% endfor %}
+</nav>

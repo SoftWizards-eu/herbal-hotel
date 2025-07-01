@@ -1,0 +1,69 @@
+w3des_admin:
+  nodes:
+    image: 
+      enabled: false
+      sortable: true
+      locale: true
+      title: title
+      index: false
+      sections:
+        data:
+          fields: 
+            title: ~
+            url:
+               options:
+                 label_format: 'node.field.video_url'
+            photo:
+              type: 'w3des\AdminBundle\Form\Type\UploadedImageType'
+              options:
+                dir: 'image'
+    file: 
+      enabled: false
+      sortable: true
+      locale: true
+      title: name
+      index: false
+      sections:
+        data:
+          fields: 
+            name: ~
+            file:
+              type: 'w3des\AdminBundle\Form\Type\UploadedImageType'
+              options:
+                dir: 'file'
+                
+                
+    music: 
+      enabled: false
+      sortable: true
+      locale: true
+      title: name
+      index: false
+      sections:
+        data:
+          fields: 
+            name: ~
+            
+            photo:
+              type: 'w3des\AdminBundle\Form\Type\UploadedImageType'
+              options:
+                dir: 'mp3cover'
+            file:
+              type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+              options:
+                dir: 'mp3'
+                label: 'MP3'
+    history: 
+      enabled: false
+      sortable: true
+      locale: true
+      title: name
+      index: false
+      sections:
+        data:
+          fields: 
+            year: ~
+            content: 
+              type: 'w3des\AdminBundle\Form\Type\CKEditorType'
+              options:
+                contentClass : 'text-content'

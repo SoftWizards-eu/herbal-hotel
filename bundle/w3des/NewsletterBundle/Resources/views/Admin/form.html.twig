@@ -1,0 +1,45 @@
+{% extends '@w3desAdmin/layout.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block page_title %}
+Newsletter treść - {{ model.id ? ' Edycja' : 'Dodaj' }}
+{% if model.id %}
+"{{ model.title }}"
+{% endif %}
+{% endblock %}
+{% block content %}
+<h1>
+    {{ block('page_title') }}
+</h1>
+
+<div class="content-box">
+{{ form_start(form) }}
+    {% if model.sendAt %}
+    <h2>
+        Przekazano do wysyłki: {{ model.sendAt|date('Y-m-d H:i:s') }}
+    </h2>
+    {% endif %}
+    
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+    {% block buttons %}
+    <nav class="breadcrumbs button-row sticky-bottom">
+        <div class="left">
+                {% if model.sendAt %}
+            {% if not model.sent %}
+            <input class="submit button" type="submit" name="rollback" value="wycofaj wysyłkę"/>
+            {% endif %}
+        {% else %}
+            <input class="submit button" type="submit" name="" value="zapisz"/>
+            {% if model.id %}
+            <input class="submit button" type="submit" name="send" value="zapisz i wyślij"/>
+            {% endif %}
+        {% endif %}
+        </div>
+        
+     </nav>
+    
+    
+    {% endblock %}
+ {{ form_end(form) }}   
+ </div>
+{% endblock %}

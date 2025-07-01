@@ -1,0 +1,54 @@
+{% extends '@w3desAdmin/layout.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block page_title %}
+{{ ('users')|trans }} - {{ model.id ? ' Edycja' : 'Dodaj' }}
+{% if model.id %}
+"{{ model.email }}"
+{% endif %}
+{% endblock %}
+{% block content %}
+<h1>
+    {{ block('page_title') }}
+</h1>
+
+<div class="content-box">
+    {{ form_start(form) }}
+    <nav class="navigation breadcrumbs button-row sticky-top">
+        <div class="left">
+            <a href="{{ url('admin.users') }}"><i class="icon-circle-left3"></i> {{ ('users')|trans }}</a>
+        
+        </div>
+    </nav>
+    
+    <div id="form">
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col">
+                {{ form_widget(form) }}
+            </div>
+            <div class="col"></div>
+        </div>
+     </div>
+     <nav class="breadcrumbs button-row sticky-bottom">
+        <div class="left">
+            <button class="button button" type="submit" name="save" value="ignore">
+                <i class="icon-floppy-disk"></i> {{ 'save'|trans }}
+            </button>
+            <button class="button button" type="submit" name="save" value="close">
+                <i class="icon-circle-left4"></i> {{ 'save_close'|trans }}
+            </button>
+        </div>
+        <div class="right">
+            {% if model.id and app.user.id != model.id %}
+            <confirm-link href="{{ url('admin.users.remove', {id : model.id}) }}">
+                <span class="button button-red pull-right">
+                    <i class="icon-bin"></i> {{ 'remove'|trans }}
+                </span>
+            </confirm-link>
+            {% endif %}
+        </div>
+     </nav>
+     
+     {{ form_end(form) }}   
+ </div>
+{% endblock %}

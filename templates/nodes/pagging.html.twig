@@ -1,0 +1,13 @@
+{% set params = params|default(app.request.query.all) %}
+{% if pages > 1 %}<ul class="pagging">
+    {% if current > 1 %}
+    <li class="prev"><a href="?{{ params|merge({page : current-1})|url_encode }}"><i class="icon-arrow-left4"></i></a></li>
+    {% endif %}
+    {% for p in 1..pages %}
+    <li class="num{{ p == current ? ' current' : '' }}"><a href="?{{ params|merge({page : p})|url_encode }}">{{ p }}</a></li>
+    {% endfor %}
+    {% if current < pages %}
+    <li class="next"><a href="?{{ params|merge({page : current+1})|url_encode }}"><i class="icon-arrow-right4"></i></a></li>
+    {% endif %}
+</ul>
+{% endif %}

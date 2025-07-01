@@ -1,0 +1,62 @@
+{% extends '@w3desAdmin/layout.html.twig' %}
+{% trans_default_domain "admin" %}
+{% block page_title %}
+{{ ('users')|trans }}
+{% endblock %}
+{% block content %}
+
+<h1>
+    <span class="icon-wrap">
+        <i class="icon-users1"></i>
+    </span> {{ block('page_title') }}
+</h1>
+<nav class="navigation breadcrumbs button-row sticky-top">
+    <div class="left">
+        <a href="{{ url('admin.users.add') }}" class="button">Dodaj <i class="icon-addfile2"></i></a>
+    </div>
+</nav>
+<dynamic-table url="{{ url('admin.users.json') }}" :columns="[
+    {
+        data: 'id',
+        title: 'ID',
+        sortable: true,
+        filter: true,
+        width: 100,
+        align: 'right'
+    },
+    {
+        data: 'isEnabled',
+        title: 'Włączony',
+        sortable: true,
+        filter: false,
+        width: 100,
+        align: 'center'
+    },
+    {
+        data: 'email',
+        title: 'E-Mail',
+        sortable: true,
+        filter: true,
+        width: 200
+    }
+    
+]"
+  :row-actions="true"
+  @row-click="window.location = '{{ url('admin.users.edit', {id :'_id_'}) }}'.replace('_id_', $event.id)"
+>
+    <template v-slot:isenabled="{value}">
+        <i class="icon-checkbox-checked2 green" v-if="value"></i>
+        <i class="icon-checkbox-unchecked red" v-else></i>
+    </template>
+    <template v-slot:row-actions="{row}">
+        <a :href="'{{ url('admin.users.edit', {id :'_id_'}) }}'.replace('_id_', row.id)" class="ico-link" v-tooltip="'edycja'" v-if="row.id != {{ app.user.id }}">
+            <i class="icon-edit1"></i>
+        </a>
+        <confirm-link :href="'{{ url('admin.users.remove', {id :'_id_'}) }}'.replace('_id_', row.id)" v-if="row.id != {{ app.user.id }}">
+            <span class="ico-link" v-tooltip="'usuń'">
+                <i class="icon-delete1"></i>
+            </span>
+        </confirm-link>
+    </template>
+</dynamic-table>
+{% endblock %}

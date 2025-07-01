@@ -1,0 +1,130 @@
+locale.pl: polska
+locale.de: niemiecka
+locale.en: angielska
+locale.fr: francuska
+locale.ru: rosyjska
+locale.ua: ukraińska
+logout: Wyloguj
+signin: Zaloguj
+password: Hasło
+email: E-mail
+node.section.bottom: "Dół strony"
+settings: Ustawienia
+settings.home: Strona główna
+settings.footer: Stopka
+settings.other: Pozostałe
+settings.facebook: Facebook
+settings.google_plus: Google Plus
+settings.youtube: YoutTube
+settings.analytics: Analytics
+settings.box1: Box 1
+settings.box2: Box 2
+settings.box3: Box 3
+
+settings.box.title: Tytuł
+settings.box.photo: Obrazek
+settings.box.url: URL
+settings.seo: SEO
+
+settings.intro: Intro 
+settings.intro_title: Tytuł
+settings.intro_content: Treść
+settings.intro_button: Przycisk
+
+settings.meta_title: Tytuł META
+settings.meta_description: Opis META
+settings.meta_keywords: Słowa kluczowe META
+
+settings.googlemap_key: Klucz google maps API
+
+settings.mail_from: 'E-mail OD'
+settings.mail_from_name: 'E-mail OD - nazwa'
+settings.mail_to: 'E-mail DO'
+settings.mail_service_to: 'E-mail do - serwis'
+settings.quick_contact: 'Szybki kontakt'
+settings.quick_contact_url: 'Szybki kontakt adres'
+settings.footer_contact: Stopka - kontakt
+node.menu: Menu
+node.page: Strona
+node.category: Kategorie
+node.product: Produkty
+node.news: Szkolenia
+node.slider: Slider
+node.attribute: Atrybuty 
+node.ads: Ogłoszenia
+node.offer: Oferta
+node.box: Boxy
+node.realization: Realizacje
+language: Język
+
+dashboard: Dashboard
+
+edit: Edytuj
+remove: Usuń  
+add: Dodaj
+
+node.section.statics: Dane podstawowe
+node.section.content: Treść
+node.section.seo: SEO
+node.section.top: "Nagłówek (head strony)"
+node.section.attributes: Atrybuty
+node.blog: 'Blog'
+
+
+node.field.title: Tytuł
+
+node.field.meta_title: Tytuł META
+node.field.meta_description: Opis META
+node.field.meta_keywords: Słowa kluczowe
+node.field.category: Kategoria
+node.field.content: Treść
+node.field.photo: Obrazek
+node.field.url: URL
+node.field.name: Nazwa
+node.field.public: Publiczny
+node.field.galleryType: Rodzaj galerii
+node.field.publishDate: Data publikacji
+node.field.lead: Lead
+node.field.lat: Długość
+node.field.lng: Szerokość
+node.field.slogan: Slogan
+node.field.video_url: Video
+node.service: Serwis
+node.field.address: Adres
+node.field.secured: Wymaga logowania
+node.contact: Kontakty
+node.field.top_photo: Obrazek
+
+settings.login: Login
+settings.password: Hasło
+users: Użytkownicy
+admin.users: Administratorzy
+
+settings.phone: Telefon
+settings.phone_time: Czas pracy telefonu
+
+settings.service_text: Serwis - text
+settings.contact_text: Kontakt - text
+node.field.type: Typ
+confirm: Czy na pewno chcesz to zrobić?
+admin: 'Panel administracyjny'
+save: Zapisz
+save_close: Zapisz i zamknij
+app: 
+  loading: Ładowanie
+pagging:
+  next: Następna strona
+  prev: Poprzednia strona
+  from: z
+  current: Strona
+  showing: Wyświetlanie
+  
+module:
+  content: Treść
+  map: Mapa
+  list: Lista
+  gallery: Galeria
+  slider: Slider
+  history: Historia
+  contact_form: Formularz kontaktowy
+  file: Pliki

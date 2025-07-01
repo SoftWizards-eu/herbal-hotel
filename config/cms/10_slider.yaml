@@ -1,0 +1,43 @@
+w3des_admin:
+  nodes:
+    slider:
+      sortable: true
+      locale: true
+      icon: 'film'
+      enabled: true
+      maxDepth: 1
+      title: name
+      sections:
+        statics:
+          fields: 
+            public:
+              type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+              default: true
+            name:
+              grid: true
+            #content: 
+            #  type: 'w3des\AdminBundle\Form\Type\CKEditorType'
+            #  options:
+            #    contentClass : 'text-content slider-content'
+            url: ~
+            photo:
+              type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+              options:
+                dir: 'slider'
+            second_photo:
+              type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+              options:
+                dir: 'slider'
+                label: 'Alternatywne video (np webm)'
+            mobile_photo:
+              type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+              options:
+                dir: 'slider'
+                label: 'Obrazek mobile'
+                
+            mobile_second:
+              type: 'w3des\AdminBundle\Form\Type\AdvFileType'
+              options:
+                dir: 'slider'
+                label: 'Alternatywne video (np webm) mobile'
+    

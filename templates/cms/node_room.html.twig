@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ node|variable('meta_title')|default(node|variable('title')) }}{%endblock%}
+{%- block header_class -%}header-dark{%- endblock -%}
+{% block content %}
+{% if true %}
+<div class="home-content">
+    <span class="bg">
+        <div class="wrap"></div>
+    </span>
+    <div class="wrap">
+        <div class="text-content intro-content">
+            <h1>{{ node|variable('title') }}</h1>
+        </div>
+        <a href="#content" class="down"></a>
+    </div>
+</div>
+{% endif %}
+<div id="content">
+    <div class="wrap">
+        <div class="page-content">
+            {% if node|variable('profitroom_id') %}
+            
+            {% endif %}
+            {% for m in node|section('content') %}
+                <section class="node-module">{{ m|render_module }}</section>
+            {% endfor %}
+            <p><a class="button" href="#" onclick="Booking.Open({RoomID: {{ node|variable('profitroom_id') }} ); return false">{{ 'room_reservation'|trans }}</a></p>
+            <div class="clear-fix"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block meta_keywords %}{{ node|variable('meta_keywords')|default('') }}{% endblock %}
+{% block meta_description %}{{ node|variable('meta_description')|default('') }}{% endblock %}
+

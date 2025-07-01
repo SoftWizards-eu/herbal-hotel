@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block title %}Wyniki wyszukiwania{%endblock%}
+{% block content %}
+{% set photo = 'build/images/search_bg.jpg' %}
+
+<div class="page-content search-content">
+    <h1 class="title"><span>Wyniki wyszukiwania</span></h1>
+    <div class="node-module">
+    <div class="text-content">
+    <div class="wrap">
+        {#}<form method="get"  class="search-block">
+            <div class="up">
+                <div><input type="text" name="query" value="{{ search.search }}" />
+                <button><i class="icon-search"></i></button></div>
+            </div>
+            <div class="down">
+                Sortowanie: <button name="type" value="" class="{{ app.request.query.get('type', '') == '' ? 'active' : '' }}">Wszystkie</button><span></span><button name="type" value="offer"  class="{{ app.request.query.get('type', '') == 'offer' ? 'active' : '' }}">Oferta</button> <button name="type" value="realization"  class="{{ app.request.query.get('type') == 'realization' ? 'active' : '' }}">Realizacje</button>
+            </div>
+        </form>#}
+        <div class="search-list">
+            {% for item in search.list %}
+            <a href="{{ item.url }}" class="item">
+                
+                <span class="ct">
+                    <span class="tit">{{ item.vars.title }}</span>
+                    <span class="lead">
+                        {{ item.vars.has('lead') ? item.vars.lead|nl2br :'' }}
+                    </span>
+                    <span class="more">Więcej <i class="icon-arrow-right4"></i></span>
+                </span>
+            </a>
+            {% else %}
+            <p>Brak wyników</p>
+            {% endfor %}
+        </div>
+        
+        {% include 'nodes/pagging.html.twig' with search %}
+    </div>
+    
+    </div>
+    </div>
+</div>
+<div class="clear-fix"></div>
+{% endblock %}
+
+{% block meta_keywords %}{% endblock %}
+{% block meta_description %}{% endblock %}
+

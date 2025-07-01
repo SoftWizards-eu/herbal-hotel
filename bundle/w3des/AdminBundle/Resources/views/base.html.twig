@@ -1,0 +1,25 @@
+{% trans_default_domain "admin" %}<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+<meta name="robots" content="noindex, nofollow" />
+<title>{% block page_title %}{{'admin'|trans }}{% endblock %} - {{ _cms.settings.title }}</title>
+{% block stylesheets %}
+{{ encore_entry_link_tags('content') }}
+{{ encore_entry_link_tags('admin', null, 'admin') }}
+{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    {% block body %}body{% endblock %}
+    {% block javascripts %}
+        <script type="text/javascript">
+            var base_url = '{{ app.request.baseUrl }}'
+        </script>
+        <script type="text/javascript" src="{{ url('i18n', {domain : 'admin'}) }}"></script>
+        {{ encore_entry_script_tags('admin', null, 'admin') }}
+    {% endblock %}
+</body>
+</html>

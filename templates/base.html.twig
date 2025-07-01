@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="keywords" content="{% block meta_keywords %}{% endblock %} ">
+        <meta name="description" content="{% block meta_description %}{% endblock %}">
+
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+    </head>
+    <body class="{%- block body_class -%}{%- endblock -%}">
+        {% block body %}
+            <div id="outer">
+                <div class="header-container {%- block header_class -%}{%- endblock -%}">
+                    <header>
+                        <div class="wrap" :class="'wrap' + (search ? ' show-search' : '')">
+                            <nav class="left">
+                                <a href="{{ url('homepage') }}" class="logo"></a>
+                                <menu type="toolbar" class="container d-flex flex-column flex-md-row justify-content-between">
+                                    {{ knp_menu_render({menu: 'app.menu'}, {depth : 2, 'template' : 'menu.html.twig'}) }}
+                                  <li class="auth-buttons">
+                                        <a href="#" class="btn-login">Zaloguj</a>
+                                        <a href="#1" class="btn-register">Zarejestruj</a>
+                                    </li>
+                                </menu> 
+                                <div class="search">
+                                    <form method="get" action="{{ url('search') }}" ref="searchForm">
+                                        <input type="text" ref="search" name="query" placeholder="Szukaj" value="{{ app.request.query.get('query') }}" />
+                                        <span class="close-search" @click.stop.prevent="stopSearch()"></span>
+                                    </form>
+                                </div>
+                                
+                            </nav>
+                            <nav class="right">
+                                <span class="open-menu" @click="menuToggle()"><span class="c1"></span><span class="c2"><span></span></span><span class="c3"></span></span>
+    </nav>
+                           
+                            
+                           
+                        </div>
+                    </header>
+                </div>
+                {% block before_content %}{% endblock %}
+                <div id="#content-start"></div>
+                {% block content %}{% endblock %}
+                
+                <footer>
+                    <div class="up">
+                        <div class="wrap">
+                            <div class="col1">
+                               <div> <a href="{{ url('homepage') }}" class="logo"></a>  </div>
+                                <div class="text footer-about-text">
+                                    {{ sett('footer')|raw }}
+                                </div>
+                                <p class="znak">&copy; DUCINALTUM {{ 'now'|date('Y') }} Wszelkie prawa zastrzeżone</p>
+                            </div>
+                            <div class="col2">
+                                <nav>
+                                    {{ knp_menu_render({menu: 'app.footer'}, {depth : 2}) }}
+                                </nav>
+                            </div>
+                            <div class="col3">
+                                {{include('part/newsletter.html.twig')}}
+
+                            </div>
+                     
+                        </div>
+                     </div>
+                    
+                    </div>
+                    <cookie-law theme="dark-lime" button-text="Akceptuję">
+                    <p slot="message">Używamy plików Cookies zgodnie z art. 11 RODO.
+Cookie to pliki pobierane i przechowywane na Twoim komputerze albo innym urządzeniu z informacjami o Twoim użytkowaniu strony w dostosowania zawartości stron internetowych do preferencji użytkownika
+oraz optymalizacji korzystania ze stron internetowych . Klikając ”Akceptuję” zgadzasz się na użycie cookies. Możliwe jest także wyłączenie Cookies poprzez ustawienia przeglądarki,
+dzięki czemu nie będą zbierane żadne informacje.</p>
+                    </cookie-law>
+                </footer>
+                <div id="footer-holder"></div>
+            </div>
+        {% endblock %}
+        {% block javascripts %}
+            <script type="text/javascript">
+                var base_url = '{{ app.request.baseUrl }}';
+                var locale = '{{ app.request.locale }}';
+            </script>
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+        <!--pipeline tested 3-->
+    </body>
+</html>

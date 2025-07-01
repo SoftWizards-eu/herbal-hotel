@@ -1,0 +1,6 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    form_themes: ['bootstrap_4_layout.html.twig', '@w3desAdmin/form.html.twig']
+    globals:
+      _locales: '%page.locales%'
+      _cms: '@w3des\AdminBundle\Service\CMS'

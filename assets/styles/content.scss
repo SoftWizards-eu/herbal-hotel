@@ -1,0 +1,151 @@
+@import './reset.css';
+@import '../fonts/fonts.css';
+.text-content .table table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px none #b3b3b3;
+    th, td {
+        min-width: 2em;
+        padding: .4em;
+        border: 1px none #b3b3b3;
+        vertical-align: middle;
+    }
+    th {
+        font-weight: 700;
+        background: hsla(0,0%,0%,5%);
+    }
+}
+
+.text-content {
+    font-size: 24px;
+    color: black;
+    font-family: Ubuntu;
+    font-weight: normal;
+    color: #3f3f3f;
+    
+    line-height: 1.4em;
+    font-weight: 300;
+}
+
+.text-content img {
+    max-width: 80%;
+}
+
+.text-content {
+    font-size: 18px;
+    line-height: 1.4em;
+    h1 {
+        font-size: 30px;
+    }
+    h2 {
+        font-size: 18px;
+    }
+    h3 {
+        font-size: 22px;
+    }
+    h4 {
+        font-size: 20px;
+    }
+    h5{
+        font-size: 18px;
+    }
+    h6 {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        padding-bottom: 10px;
+        font-weight: 300;
+        line-height: 1.4em;
+    }
+    b, strong {
+        font-weight: bold;
+    }
+    i {
+        font-style: italic;
+    }
+}
+.slider-content h2 {
+    font-size: 41px;
+    font-weight: 300;
+}
+.slider-content h3 {
+    font-size: 68px;
+    font-weight: 300;
+}
+.intro-content {
+    font-size: 24px;
+    color: black;
+    font-weight: 300;
+    line-height: 1.3em;
+    h2 {
+        font-size: 48px;
+        font-weight: 300;
+        color: #3e7590;
+    }
+}
+
+
+.text-content p, .text-content ul, .text-content ol, .content ul, .content ol {
+    padding: 5px 0px;
+}
+hr {
+    border:1px solid #009fe3;
+}
+
+.text-content ul, .text-content ol, .content ul, content ol {
+    padding-left: 0px;
+}
+
+.text-content ul, .content ul {
+    list-style: square;
+    /*list-style-position: inside;*/
+    padding-left: 30px;
+}
+
+.text-content ol, .content ol {
+    list-style: decimal;
+    /*list-style-position: inside;*/
+    padding-left: 30px;
+}
+
+.text-content ul li, .text-content ol li, .content ul li, content ol li {
+    padding-left: 0px;
+}
+
+.text-content strong {
+    font-weight: bold;
+}
+.text-content em {
+    font-style: italic;;
+}
+
+body.video-content {
+    background: #f6f7f9;
+}
+.video-content {
+    color: #3f3f3f;
+    font-weight: 300;
+    line-height: 1.4em;
+    font-size: 28px;
+}
+.text-content {
+    .ck-content {
+        max-width: 1440px;
+    }
+}
+
+.footer-about-text {
+    font-size: 18px;
+    line-height: 1.5em;
+    color: white;
+    .ck-editor__main, .ck-editor__editable_inline {
+        background: #4e4e4e !important;
+        .ck-content {
+            max-width: 400px;
+        }
+    }
+}

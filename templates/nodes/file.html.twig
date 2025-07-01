@@ -1,0 +1,18 @@
+<div class="node-files">
+    <div class="bg">
+        {% set urls = [] %}
+        <div class="wrap">
+            <h2 class="nice-title"><i class="icon-attachment"></i> <span>Pliki do pobrania </span></h2>
+            <ul>
+                {% for index, item in module.children %}
+                    <li>
+                        <em>{{ item.vars.name|default(item.vars.file.path) }}</em>
+                        <span>
+                            <a href="{{ asset(item.vars.file.path) }}" class="btn" download>pobierz plik</a>
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
