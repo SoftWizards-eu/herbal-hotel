@@ -4,55 +4,37 @@ namespace w3des\NewsletterBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="newsletter_content", indexes={
- *  @ORM\Index(columns={"service", "locale"})
- * })
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'newsletter_content', indexes: [
+    new ORM\Index(columns: ['service', 'locale'])
+])]
 class NewsletterContent
 {
-    /**
-     * @ORM\Column(type="bigint")
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Column(type: 'bigint')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     protected $service;
 
-    /**
-     * @ORM\Column(type="string", length=2)
-     */
+    #[ORM\Column(type: 'string', length: 2)]
     protected $locale;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     protected $createdAt;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     protected $sendAt;
 
-    /**
-     * @ORM\Column(type="string", nullable=false)
-     * @Assert\NotBlank()
-     */
+    #[ORM\Column(type: 'string', nullable: false)]
+    #[Assert\NotBlank]
     protected $title;
 
-    /**
-     * @ORM\Column(type="text", nullable=false)
-     */
+    #[ORM\Column(type: 'text', nullable: false)]
     protected $content;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
+    #[ORM\Column(type: 'boolean', nullable: true)]
     protected $sent;
 
     /**

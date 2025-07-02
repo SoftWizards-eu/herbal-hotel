@@ -5,64 +5,44 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use w3des\AdminBundle\Model\ValuesMap;
 
-/**
- * @ORM\Table(indexes={
- *  @ORM\Index(name="node_type_idx", columns={"service", "type", "locale"}),
- *  @ORM\Index(name="node_external_id", columns={"external_id"})
- * })
- * @ORM\Entity(repositoryClass="w3des\AdminBundle\Repository\NodeRepository")
- */
+#[ORM\Table(options: ["indexes" => [
+    new ORM\Index(name: "node_type_idx", columns: ["service", "type", "locale"]),
+    new ORM\Index(name: "node_external_id", columns: ["external_id"])
+]])]
+#[ORM\Entity(repositoryClass: "w3des\AdminBundle\Repository\NodeRepository")]
 class Node
 {
 
-    /**
-     * @ORM\Id()
-     * @ORM\Column(type="bigint")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id()]
+    #[ORM\Column(type: "bigint")]
+    #[ORM\GeneratedValue(strategy: "AUTO")]
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer")]
     private $service;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer")]
     private $pos;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: "string")]
     private $type;
 
-    /**
-     * @ORM\Column(type="string", length=2)
-     */
+    #[ORM\Column(type: "string", length: 2)]
     private $locale;
 
-    /**
-     * @ORM\OneToMany(targetEntity="w3des\AdminBundle\Entity\NodeVariable", mappedBy="node", orphanRemoval=true, fetch="EAGER", cascade={"all"})
-     * @ORM\OrderBy({"pos" = "asc"})
-     */
+    #[ORM\OneToMany(targetEntity: "w3des\AdminBundle\Entity\NodeVariable", mappedBy: "node", orphanRemoval: true, fetch: "EAGER", cascade: ["all"])]
+    #[ORM\OrderBy(["pos" => "asc"])]
     private $variables;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="w3des\AdminBundle\Entity\Node", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id")
-     */
+    #[ORM\ManyToOne(targetEntity: "w3des\AdminBundle\Entity\Node", inversedBy: "children")]
+    #[ORM\JoinColumn(name: "parent_id")]
     private $parent;
 
-    /**
-     * @ORM\OneToMany(targetEntity="w3des\AdminBundle\Entity\Node", mappedBy="parent")
-     * @ORM\OrderBy({"pos" = "ASC"})
-     */
+    #[ORM\OneToMany(targetEntity: "w3des\AdminBundle\Entity\Node", mappedBy: "parent")]
+    #[ORM\OrderBy(["pos" => "ASC"])]
     private $children;
 
-    /**
-     * @ORM\OneToMany(targetEntity="w3des\AdminBundle\Entity\NodeUrl", indexBy="locale", mappedBy="node",  fetch="EAGER", cascade={"all"})
-     */
+    #[ORM\OneToMany(targetEntity: "w3des\AdminBundle\Entity\NodeUrl", indexBy: "locale", mappedBy: "node", fetch: "EAGER", cascade: ["all"])]
     private $urls;
 
     /**
@@ -72,18 +52,14 @@ class Node
 
     /**
      * @var string
-     * @ORM\Column(name="external_id", nullable=true)
      */
+    #[ORM\Column(name: "external_id", nullable: true)]
     private $externalId;
 
-    /**
-     * @ORM\Column(type="json", nullable=true)
-     */
+    #[ORM\Column(type: "json", nullable: true)]
     private $meta;
 
-    /**
-     * @ORM\OneToMany(targetEntity="NodePos", mappedBy="node", cascade={"all"})
-     */
+    #[ORM\OneToMany(targetEntity: "NodePos", mappedBy: "node", cascade: ["all"])]
     private $positions;
 
     public function __construct()

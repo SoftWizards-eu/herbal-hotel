@@ -15,8 +15,8 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
-    // public path used by the web server to access the output path
-    .setPublicPath(dotenv.parsed.BASE_URL  + '/build')
+    // Conditional publicPath - dla dev-server używaj względnej ścieżki
+    .setPublicPath(Encore.isDevServer() ? '/build' : dotenv.parsed.BASE_URL + '/build')
     // only needed for CDN's or sub-directory deploy
     .setManifestKeyPrefix('build/')
   
@@ -33,7 +33,11 @@ Encore
     .addEntry('app', './assets/app.js')
     .configureDevServerOptions(option => {
        option.firewall = false;
-       option.watchFiles = [__dirname + '/templates/**/*']
+       option.watchFiles = [__dirname + '/templates/**/*'];
+       // Dodaj CORS headers dla dev-server
+       option.headers = {
+           'Access-Control-Allow-Origin': '*',
+       };
     })
     //.addEntry('admin', './bundle/w3des/AdminBundle/Resources/public/js/app.js')
     //.addEntry('page1', './assets/page1.js')

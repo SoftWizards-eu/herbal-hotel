@@ -65,6 +65,7 @@ w3des_admin:
             - { type: 'w3des\AdminBundle\NodeModule\GalleryModule', default: false }
             - { type: 'w3des\AdminBundle\NodeModule\ListModule', default: false }
             - { type: 'w3des\AdminBundle\NodeModule\ContactModule', default: false }
+            - { type: 'w3des\AdminBundle\NodeModule\DupaModule', default: false }
 
         #bottom:
         #  modules:

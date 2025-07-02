@@ -2,6 +2,6 @@ w3des_admin:
   services:
     default:
       id: 0
-      title: 'Duc In Altum'
+      title: 'Herbal Hotel'
       extra: ~
       domains: ~

@@ -35,7 +35,7 @@ class SendCommand extends Command
                 ->get('doctrine.orm.default_entity_manager')
                 ->find(NewsletterContent::class, $input->getOption('content'));
             if ($content) {
-                $this->process($content, $input->getOption('test'), $output);
+                $this->process($content, $output, $input->getOption('test'));
             } else {
                 $output->writeln('<error>Nie istnieje</error>');
             }
@@ -46,12 +46,12 @@ class SendCommand extends Command
                 ->execute([
                 'send' => true
             ]) as $cnt) {
-                $this->process($cnt, $input->getOption('test'), $output);
+                $this->process($cnt, $output, $input->getOption('test'));
             }
         }
     }
 
-    protected function process(NewsletterContent $content, $email = null, OutputInterface $output)
+    protected function process(NewsletterContent $content, OutputInterface $output, mixed $email = null): void
     {
         $output->writeln('<info>Wysyłka ' . $content->getTitle() . ':</info>');
         $this->getContainer()

@@ -4,7 +4,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route; 
 use w3des\AdminBundle\Service\ModuleRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use w3des\AdminBundle\Model\NodeView;
@@ -74,42 +74,34 @@ class HomeController extends AbstractController
         return $resp;
     }
 
-
-
-    /**
-     * @Route({
-     *  "pl" = "/pl/rezerwacja",
-     *  "en" = "/en/reservation",
-     *  "de" = "/de/reservierung",
-     *  "ru" = "/ru/rezervirovanie"
-     * }, name="reservation")
-     */
+    #[Route([
+        'pl' => '/pl/rezerwacja',
+        'en' => '/en/reservation', 
+        'de' => '/de/reservierung',
+        'ru' => '/ru/rezervirovanie'
+    ], name: 'reservation')]
     public function reservation()
     {
         return $this->render('home/reservation.html.twig');
     }
 
-    /**
-     * @Route({
-     *  "pl" = "/pl/polityka-prywatnosci",
-     *  "en" = "/en/privacy-policy",
-     *  "de" = "/de/privacy-policy",
-     *  "ru" = "/ru/privacy-policy"
-     * }, name="privacy_policy")
-     */
+    #[Route([
+        'pl' => '/pl/polityka-prywatnosci',
+        'en' => '/en/privacy-policy',
+        'de' => '/de/privacy-policy', 
+        'ru' => '/ru/privacy-policy'
+    ], name: 'privacy_policy')]
     public function privacyPolicy()
     {
         return $this->render('home/privacy_policy.html.twig');
     }
 
-    /**
-     * @Route({
-     *  "pl" = "/pl/regulaminy",
-     *  "en" = "/en/rules",
-     *  "de" = "/de/rules",
-     *  "ru" = "/ru/rules"
-     * }, name="rules")
-     */
+    #[Route([
+        'pl' => '/pl/regulaminy',
+        'en' => '/en/rules',
+        'de' => '/de/rules',
+        'ru' => '/ru/rules'
+    ], name: 'rules')]
     public function rules()
     {
         return $this->render('home/rules.html.twig');

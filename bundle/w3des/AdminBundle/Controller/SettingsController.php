@@ -1,7 +1,7 @@
 <?php
 namespace w3des\AdminBundle\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;  
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use w3des\AdminBundle\Entity\Setting;
@@ -12,9 +12,8 @@ use w3des\AdminBundle\Model\SettingsList;
 use w3des\AdminBundle\Service\CMS;
 use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @Route("/settings")
- */
+
+  #[Route('/settings')]
 class SettingsController extends AbstractController
 {
 
@@ -27,9 +26,8 @@ class SettingsController extends AbstractController
         $this->em = $em;
     }
 
-    /**
-     * @Route("/{group}", name="admin.settings")
-     */
+   
+    #[Route('/{group}', name: 'admin.settings')]
     public function groupAction($group, $pageLocale, Request $request, Settings $sett, Values $values)
     {
         if (! isset($sett->getSections()[$group])) {

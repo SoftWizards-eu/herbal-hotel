@@ -1,16 +1,13 @@
 <?php
 namespace w3des\AdminBundle\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;  
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-
-    /**
-     * @Route("/login", name="admin.login")
-     */
+    #[Route('/login', name: 'admin.login')]
     public function loginAction(AuthenticationUtils $authenticationUtils)
     {
 
@@ -25,9 +22,7 @@ class SecurityController extends AbstractController
         ));
     }
 
-    /**
-     * @Route("/logout", name="admin.logout", methods="GET")
-     */
+    #[Route('/logout', name: 'admin.logout', methods: ['GET'])]
     public function logoutAction()
     {}
 }

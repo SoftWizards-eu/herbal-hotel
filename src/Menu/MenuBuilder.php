@@ -12,12 +12,12 @@ use w3des\AdminBundle\Model\NodeView;
 
 class MenuBuilder
 {
-
-    protected $stack;
-
-    protected $em;
-
-    private $translator;
+    // DEFINIUJ WŁAŚCIWOŚCI JAWNIE
+    private FactoryInterface $factory;
+    private Nodes $nodes;
+    protected RequestStack $stack;
+    protected EntityManagerInterface $em;
+    private TranslatorInterface $translator;
 
     public function __construct(FactoryInterface $factory, Nodes $nodes, RequestStack $stack, EntityManagerInterface $em, TranslatorInterface $translator)
     {
@@ -25,7 +25,6 @@ class MenuBuilder
         $this->nodes = $nodes;
         $this->stack = $stack;
         $this->em = $em;
-        $this->nodes = $nodes;
         $this->translator = $translator;
     }
 

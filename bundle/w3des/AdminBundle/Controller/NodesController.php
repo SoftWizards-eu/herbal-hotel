@@ -1,8 +1,8 @@
 <?php
 namespace w3des\AdminBundle\Controller;
 
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use w3des\AdminBundle\Form\Type\FullNodeType;
 use w3des\AdminBundle\Service\CMS;
 
-/**
- * @Route("/nodes")
- */
+#[Route('/nodes')]
 class NodesController extends AbstractController
 {
 
@@ -40,9 +38,7 @@ class NodesController extends AbstractController
         $this->cms = $cms;
     }
 
-    /**
-     * @Route("/{type}/list/{embedType}", name="admin.node.link", methods="GET")
-     */
+    #[Route('/{type}/list/{embedType}', name: 'admin.node.link', methods: ['GET'])]
     public function linkAction($type, $embedType, $pageLocale, Request $request)
     {
         $cfg = $this->nodes->getNodeCfg($embedType);
@@ -66,9 +62,7 @@ class NodesController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{type}/list", name="admin.node", methods="GET")
-     */
+    #[Route('/{type}/list', name: 'admin.node', methods: ['GET'])]
     public function indexAction($type, $pageLocale, Request $request)
     {
         $cfg = $this->nodes->getNodeCfg($type);
@@ -132,9 +126,7 @@ class NodesController extends AbstractController
         return $data;
     }
 
-    /**
-     * @Route("/{type}/list", methods="POST")
-     */
+    #[Route('/{type}/list', methods: ['POST'])]
     public function saveOrderAction($type, $pageLocale, Request $request)
     {
         $em = $this->em;
@@ -162,9 +154,7 @@ class NodesController extends AbstractController
         ]));
     }
 
-    /**
-     * @Route("/{type}.json", name="admin.node.json")
-     */
+    #[Route('/{type}.json', name: 'admin.node.json')]
     public function jsonAction($type, $pageLocale, Request $request)
     {
         $cfg = $this->nodes->getNodeCfg($type);
@@ -249,9 +239,7 @@ class NodesController extends AbstractController
         return new JsonResponse($response);
     }
 
-    /**
-     * @Route("/{type}/add", name="admin.node.add")
-     */
+    #[Route('/{type}/add', name: 'admin.node.add')]
     public function addAction($type, Request $request)
     {
         $model = new Node();
@@ -295,17 +283,13 @@ class NodesController extends AbstractController
         return $this->form($request, $type, $model);
     }
 
-    /**
-     * @Route("/{type}/{id}/edit", name="admin.node.edit")
-     */
+    #[Route('/{type}/{id}/edit', name: 'admin.node.edit')]
     public function editAction(Node $node, $type, Request $request)
     {
         return $this->form($request, $type, $node);
     }
 
-    /**
-     * @Route("/{type}/{id}/remove", name="admin.node.remove")
-     */
+    #[Route('/{type}/{id}/remove', name: 'admin.node.remove')]
     public function removeAction(Node $node, $type, Request $request)
     {
         $em = $this->em;

@@ -33,7 +33,8 @@ class NodeView
 
     private $_vars;
 
-    public function __construct(Nodes $nodes, NodeView $parent = null)
+    // NAPRAW NULLABLE PARAMETER
+    public function __construct(Nodes $nodes, ?NodeView $parent = null)
     {
         $this->_nodes = $nodes;
         $this->_parent = $parent;

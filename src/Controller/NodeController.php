@@ -5,14 +5,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use w3des\AdminBundle\Entity\Node;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity; 
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\HttpFoundation\Response;
 use w3des\AdminBundle\Entity\NodeUrl;
 use w3des\AdminBundle\Service\Nodes;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;  
 use w3des\AdminBundle\Model\NodeView;
 use w3des\AdminBundle\Service\ModuleRegistry;
 use w3des\AdminBundle\Service\CMS;
@@ -35,11 +34,7 @@ class NodeController extends AbstractController
         $this->nodes = $nodes;
     }
 
-
-    /**
-     * @ParamConverter("node", converter="node")
-     */
-    public function node(Request $request, ModuleRegistry $registry, NodeView $node, CMS $cms, MenuProviderInterface $menu)
+    public function node(Request $request, ModuleRegistry $registry, #[MapEntity(converter: 'node')] NodeView $node, CMS $cms, MenuProviderInterface $menu)
     {
         $cfg = $this->nodes->getNodeCfg($node->type);
 
@@ -90,10 +85,7 @@ class NodeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/_download/{id}", name="download")
-     * @Method("GET")
-     */
+    #[Route('/_download/{id}', name: 'download', methods: ['GET'])]
     public function download(Node $node)
     {
         if ($node->getType() != 'file') {
@@ -106,9 +98,7 @@ class NodeController extends AbstractController
         return $response;
     }
 
-    /**
-     * @Route("/{_locale}/search", name="search")
-     */
+    #[Route('/{_locale}/search', name: 'search')]
     public function search(AppExtension $ext, Request $request)
     {
         if (strlen(trim($request->query->get('query'))) < 3) {

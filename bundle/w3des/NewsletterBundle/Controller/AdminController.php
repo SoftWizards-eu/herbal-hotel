@@ -1,7 +1,7 @@
 <?php
 namespace w3des\NewsletterBundle\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -21,12 +21,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use w3des\AdminBundle\Service\CMS;
 
-/**
- * @Route("/newsletter")
- */
+#[Route('/newsletter')]
 class AdminController extends AbstractController
 {
-
     private $cms;
 
     public function __construct(CMS $cms)
@@ -34,17 +31,13 @@ class AdminController extends AbstractController
         $this->cms = $cms;
     }
 
-    /**
-     * @Route("/subscribers", name="admin.newsletter.subscribers")
-     */
+    #[Route('/subscribers', name: 'admin.newsletter.subscribers')]
     public function subscribersAction()
     {
         return $this->render('@w3desNewsletter/Admin/subscribers.html.twig');
     }
 
-    /**
-     * @Route("/subscribers.csv", name="admin.newsletter.subscribers.export")
-     */
+    #[Route('/subscribers.csv', name: 'admin.newsletter.subscribers.export')]
     public function subscribersExportAction($pageLocale, EntityManagerInterface $em)
     {
         $_service = $this->cms->getService();
@@ -64,9 +57,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/subscribers/import", name="admin.newsletter.subscribers.import")
-     */
+    #[Route('/subscribers/import', name: 'admin.newsletter.subscribers.import')] 
     public function subscribersImportAction(Request $request, Util $newsletter, $pageLocale)
     {
         $_service = $this->cms->getService();
@@ -96,9 +87,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/subscribers.json", name="admin.newsletter.subscribers.json")
-     */
+   #[Route('/subscribers.json', name: 'admin.newsletter.subscribers.json')]
     public function subscribersListAction(Request $request, EntityManagerInterface $em)
     {
         $_service = $this->cms->getService();
@@ -135,9 +124,7 @@ class AdminController extends AbstractController
         return new JsonResponse($response);
     }
 
-    /**
-     * @Route("/subscribers/{id}/remove", name="admin.newsletter.subscriber.remove")
-     */
+     #[Route('/subscribers/{id}/remove', name: 'admin.newsletter.subscriber.remove')]
     public function subscriberRemoveAction(Request $request, NewsletterEmail $cnt, EntityManagerInterface $em)
     {
         $em->remove($cnt);
@@ -149,17 +136,13 @@ class AdminController extends AbstractController
         return $this->redirect($this->generateUrl('admin.newsletter.subscribers'));
     }
 
-    /**
-     * @Route("/contents", name="admin.newsletter.contents")
-     */
+   #[Route('/contents', name: 'admin.newsletter.contents')]
     public function contentsAction()
     {
         return $this->render('@w3desNewsletter/Admin/contents.html.twig');
     }
 
-    /**
-     * @Route("/contents.json", name="admin.newsletter.contents.json")
-     */
+    #[Route('/contents.json', name: 'admin.newsletter.contents.json')]
     public function contentsListAction(Request $request, EntityManagerInterface $em, $pageLocale)
     {
         $_service = $this->cms->getService();
@@ -195,9 +178,7 @@ class AdminController extends AbstractController
         return new JsonResponse($response);
     }
 
-    /**
-     * @Route("/contents/add", name="admin.newsletter.content.add")
-     */
+     #[Route('/contents/add', name: 'admin.newsletter.content.add')]
     public function contentAddAction(Request $request, $pageLocale)
     {
         $_service = $this->cms->getService();
@@ -261,9 +242,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/contents/{id}/remove", name="admin.newsletter.content.remove")
-     */
+     #[Route('/contents/{id}/remove', name: 'admin.newsletter.content.remove')]
     public function contentRemoveAction(Request $request, NewsletterContent $cnt)
     {
         $em = $this->get('doctrine.orm.default_entity_manager');
@@ -276,9 +255,7 @@ class AdminController extends AbstractController
         return $this->redirect($this->generateUrl('admin.newsletter.contents'));
     }
 
-    /**
-     * @Route("/contents/{id}/edit", name="admin.newsletter.content.edit")
-     */
+    #[Route('/contents/{id}/edit', name: 'admin.newsletter.content.edit')]
     public function contentEditAction(Request $request, NewsletterContent $cnt)
     {
         return $this->form($request, $cnt);

@@ -4,54 +4,43 @@ namespace w3des\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-/**
- * @ORM\Table(uniqueConstraints={
- *  @ORM\UniqueConstraint(columns={"service","locale", "slug"})
- * }, indexes={
- *  @ORM\Index(name="node_url_service_idx", columns={"service"}),
- *  @ORM\Index(name="node_url_pathx", columns={"service", "locale", "path"})
- * }, options={"charset" = "ascii", "collate" = "ascii_general_ci"})
- * @ORM\Entity()
- */
+#[ORM\Table(options: [
+    "uniqueConstraints" => [
+        new ORM\UniqueConstraint(columns: ["service","locale", "slug"])
+    ],
+    "indexes" => [
+        new ORM\Index(name: "node_url_service_idx", columns: ["service"]),
+        new ORM\Index(name: "node_url_pathx", columns: ["service", "locale", "path"])
+    ],
+    "charset" => "ascii", 
+    "collate" => "ascii_general_ci"
+])]
+#[ORM\Entity()]
 class NodeUrl
 {
 
-    /**
-     * @ORM\Column(type="bigint")
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Column(type: "bigint")]
+    #[ORM\Id()]
+    #[ORM\GeneratedValue(strategy: "AUTO")]
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer")]
     private $service;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="w3des\AdminBundle\Entity\Node", inversedBy="urls")
-     * @ORM\JoinColumn(name="node_id", referencedColumnName="id", onDelete="CASCADE")
-     */
+    #[ORM\ManyToOne(targetEntity: "w3des\AdminBundle\Entity\Node", inversedBy: "urls")]
+    #[ORM\JoinColumn(name: "node_id", referencedColumnName: "id", onDelete: "CASCADE")]
     private $node;
 
-    /**
-     * @ORM\Column(type="string", length=2)
-     */
+    #[ORM\Column(type: "string", length: 2)]
     private $locale;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: "string")]
     private $slug;
 
-    /**
-     * @ORM\Column(type="string", length=1000)
-     */
+    #[ORM\Column(type: "string", length: 1000)]
     private $path;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: "string")]
     private $type = 'node';
 
     public function __construct()

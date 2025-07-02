@@ -31,11 +31,11 @@ interface ValueInterface
 
     public function getFileValue();
 
-    public function setFileValue(File $file = null);
+    public function setFileValue(?File $file = null);
 
     public function getNodeValue();
 
-    public function setNodeValue(Node $node = null);
+    public function setNodeValue(?Node $node = null);
 
     public function getType();
 

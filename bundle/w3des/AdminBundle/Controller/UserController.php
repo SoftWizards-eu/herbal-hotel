@@ -5,7 +5,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;  
 use w3des\AdminBundle\Entity\User;
 use w3des\AdminBundle\Form\Type\UserType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -19,19 +19,14 @@ class UserController extends AbstractController
         $this->encoder = $encoder;
     }
 
-
-    /**
-     * @Route("/users", name="admin.users")
-     */
+    #[Route('/users', name: 'admin.users')]
     public function usersAction()
     {
         return $this->render('@w3desAdmin/User/users.html.twig', array(
         ));
     }
 
-    /**
-     * @Route("/users.json", name="admin.users.json")
-     */
+    #[Route('/users.json', name: 'admin.users.json')]
     public function jsonAction(Request $request)
     {
         $repo = $this->getDoctrine()
@@ -81,17 +76,13 @@ class UserController extends AbstractController
         return new JsonResponse($response);
     }
 
-    /**
-     * @Route("/add", name="admin.users.add")
-     */
+    #[Route('/add', name: 'admin.users.add')]
     public function addAction(Request $request)
     {
         return $this->form(new User(), $request);
     }
 
-    /**
-     * @Route("/{id}/edit", name="admin.users.edit")
-     */
+    #[Route('/{id}/edit', name: 'admin.users.edit')]
     public function editAction(User $user, Request $request)
     {
         return $this->form($user, $request);
@@ -127,9 +118,7 @@ class UserController extends AbstractController
         ));
     }
 
-    /**
-     * @Route("/{id}/remove", name="admin.users.remove")
-     */
+    #[Route('/{id}/remove', name: 'admin.users.remove')]
     public function removeAction(User $user)
     {
         if ($user->getId() == $this->getUser()->getId()) {

@@ -1,7 +1,7 @@
 <?php
 namespace w3des\NewsletterBundle\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use w3des\NewsletterBundle\Entity\NewsletterEmail;
 use Ramsey\Uuid\Uuid;
@@ -16,9 +16,7 @@ class NewsletterController extends AbstractController
     {
         $this->cms = $cms;
     }
-    /**
-     * @Route("/subscribe", name="newsletter.subscribe")
-     */
+    #[Route('/subscribe', name: 'newsletter.subscribe')]
     public function subscribeAction(Request $request)
     {
         $_service = $this->cms->getService();

@@ -119,7 +119,7 @@ class AdminExtension extends AbstractExtension
         return '//www.youtube.com/embed/' . $matches[1] . '?version=3&autoplay=1';
     }
 
-    public function dateRange(\DateTime $from, \DateTime $to = null)
+    public function dateRange(\DateTime $from, ?\DateTime $to = null): string
     {
         if ($to) {
             if ($from->format('d.m.Y') != $to->format('d.m.Y')) {

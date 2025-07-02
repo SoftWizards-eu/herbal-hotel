@@ -1,7 +1,7 @@
 <?php
 namespace w3des\AdminBundle\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;  
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -11,18 +11,13 @@ use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
 class DashboardController extends AbstractController
 {
-
-    /**
-     * @Route("/", name="admin.home")
-     */
+    #[Route('/', name: 'admin.home')]
     public function indexAction()
     {
         return $this->render('@w3desAdmin/Dashboard/index.html.twig');
     }
 
-    /**
-     * @Route("/service/{id}", name="admin.service")
-     */
+    #[Route('/service/{id}', name: 'admin.service')]
     public function service(Request $request, $id)
     {
         $request->getSession()->set('_service', $id);
@@ -30,9 +25,7 @@ class DashboardController extends AbstractController
         return $this->redirect($this->generateUrl('admin.home'));
     }
 
-    /**
-     * @Route("/lang/{lang}", name="admin.lang")
-     */
+    #[Route('/lang/{lang}', name: 'admin.lang')]
     public function langAction(Request $request, $lang)
     {
         $request->getSession()->set('_page_locale', $lang);
@@ -40,9 +33,7 @@ class DashboardController extends AbstractController
         return $this->redirect($this->generateUrl('admin.home'));
     }
 
-    /**
-     * @Route("/upload", name="admin.upload", methods="POST")
-     */
+    #[Route('/upload', name: 'admin.upload', methods: ['POST'])]
     public function uploadAction(Request $request, CacheManager $cacheManager, $uploadPath, $publicDir)
     {
         $uploadDir = $publicDir . '/' . $uploadPath;

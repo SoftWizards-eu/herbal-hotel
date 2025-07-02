@@ -5,38 +5,26 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @ORM\Entity(repositoryClass="w3des\AdminBundle\Repository\UserRepository")
- * @ORM\Table(name="admin_users")
- */
+#[ORM\Entity(repositoryClass: "w3des\AdminBundle\Repository\UserRepository")]
+#[ORM\Table(name: "admin_users")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 {
 
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Column(type: "integer")]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "AUTO")]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: "string", length: 255)]
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=60, unique=true)
-     */
+    #[ORM\Column(type: "string", length: 60, unique: true)]
     private $email;
 
-    /**
-     * @ORM\Column(type="json", name="main_roles")
-     */
+    #[ORM\Column(type: "json", name: "main_roles")]
     private $mainRoles = [];
 
-    /**
-     * @ORM\Column(name="is_enabled", type="boolean")
-     */
+    #[ORM\Column(name: "is_enabled", type: "boolean")]
     private $isEnabled;
 
     public function __construct()
@@ -47,7 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     /**
      * {@inheritDoc}
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         $roles = $this->getMainRoles();
         $roles = \is_array($roles) ? $roles : [];

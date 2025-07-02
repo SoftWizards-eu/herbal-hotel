@@ -4,7 +4,7 @@ namespace App\Controller;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route; 
 use Symfony\Component\HttpFoundation\Response;
 
 class I18nController
@@ -23,9 +23,7 @@ class I18nController
         $this->expire = $environment == 'prod' ? 3600 : 60;
     }
 
-    /**
-     * @Route("/i18n/{domain}/{_locale}.js", name="i18n")
-     */
+    #[Route('/i18n/{domain}/{_locale}.js', name: 'i18n')]
     public function i18n($domain, $_locale)
     {
         $res = new Response($this->cache->get('locale.' . $domain . '.' . $_locale, function (ItemInterface $item) use ($domain, $_locale) {

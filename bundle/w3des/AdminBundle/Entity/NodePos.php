@@ -4,29 +4,21 @@ namespace w3des\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-/**
- * @ORM\Table(name="node_pos")
- * @ORM\Entity()
- */
+#[ORM\Table(name: "node_pos")]
+#[ORM\Entity()]
 class NodePos
 {
-    /**
-     * @ORM\ManyToOne(targetEntity="Node", inversedBy="positions")
-     * @ORM\JoinColumn(name="node_id", onDelete="CASCADE")
-     * @ORM\Id
-     */
+    #[ORM\ManyToOne(targetEntity: "Node", inversedBy: "positions")]
+    #[ORM\JoinColumn(name: "node_id", onDelete: "CASCADE")]
+    #[ORM\Id]
     private $node;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Node")
-     * @ORM\JoinColumn(name="target_node_id", onDelete="CASCADE")
-     * @ORM\Id
-     */
+    #[ORM\ManyToOne(targetEntity: "Node")]
+    #[ORM\JoinColumn(name: "target_node_id", onDelete: "CASCADE")]
+    #[ORM\Id]
     private $target;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer")]
     private $pos;
     /**
      * @return $node

@@ -3,40 +3,30 @@ namespace w3des\NewsletterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="newsletter_email", indexes={
- *  @ORM\Index(columns={"service", "locale"})
- * }, uniqueConstraints={@ORM\UniqueConstraint(name="newsletetr_email_uniq", columns={"email", "locale"})})
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'newsletter_email', indexes: [
+    new ORM\Index(columns: ['service', 'locale'])
+], uniqueConstraints: [
+    new ORM\UniqueConstraint(name: 'newsletetr_email_uniq', columns: ['email', 'locale'])
+])]
+#[ORM\HasLifecycleCallbacks]
 class NewsletterEmail
 {
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     protected $email;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     protected $service;
 
-    /**
-     * @ORM\Column(type="string", length=2)
-     */
+    #[ORM\Column(type: 'string', length: 2)]
     protected $locale;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     protected $createdAt;
 
-    /**
-     * @ORM\Column(type="string", name="token")
-     * @ORM\Id
-     */
+    #[ORM\Column(type: 'string', name: 'token')]
+    #[ORM\Id]
     protected $id;
 
     public function __construct()

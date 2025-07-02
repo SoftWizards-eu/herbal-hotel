@@ -8,56 +8,35 @@ use VertigoLabs\DoctrineFullTextPostgres\ORM\Mapping\TsVector;
 
 trait ValueTrait
 {
-
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     private $name;
 
-    /**
-     * @ORM\Column(type="string", length=2)
-     */
+    #[ORM\Column(type: 'string', length: 2)]
     private $locale;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private $pos = 0;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     private $type;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private $stringValue;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $intValue;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
+    #[ORM\Column(type: 'float', nullable: true)]
     private $floatValue;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $textValue;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private $dateTimeValue;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="w3des\AdminBundle\Entity\File", fetch="EAGER", cascade={"persist", "merge", "detach", "refresh"})
-     * @ORM\JoinColumn(name="file_value", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'w3des\AdminBundle\Entity\File', fetch: 'EAGER', cascade: ['persist', 'merge', 'detach', 'refresh'])]
+    #[ORM\JoinColumn(name: 'file_value', referencedColumnName: 'id')]
     private $fileValue;
 
     private $newPos;
@@ -70,10 +49,8 @@ trait ValueTrait
 
     public $uploadedFile;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Node", cascade={"persist"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="node_value", referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Node', cascade: ['persist'], fetch: 'EAGER')]
+    #[ORM\JoinColumn(name: 'node_value', referencedColumnName: 'id')]
     private $nodeValue;
 
     public function getPos()
@@ -198,16 +175,16 @@ trait ValueTrait
         return $this->fileValue;
     }
 
-    public function setFileValue(File $file = null)
+    public function setFileValue(mixed $file = null): void
     {
         $this->fileValue = $file;
     }
 
-    public function setNodeValue(Node $nodeValue = null)
+    public function setNodeValue(mixed $nodeValue = null): void
     {
         $this->cleanValues();
         $this->nodeValue = $nodeValue;
-        return $this;
+    
     }
 
     public function getNodeValue()

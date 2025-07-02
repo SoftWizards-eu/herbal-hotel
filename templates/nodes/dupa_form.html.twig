@@ -1,0 +1,42 @@
+
+{% if module.vars.title or module.vars.subtitle or module.vars.content %}
+<section class="dupa-section">
+    <div class="dupa-container">
+        {% if module.vars.title %}
+            <div class="dupa-header">
+                <h2 class="dupa-title">{{ module.vars.title }}</h2>
+            </div>
+        {% endif %}
+        
+        {% if module.vars.subtitle %}
+            <div class="dupa-subtitle">
+                <h3>{{ module.vars.subtitle }}</h3>
+            </div>
+        {% endif %}
+        
+        {% if module.vars.content %}
+            <div class="dupa-content text text-content">
+                {{ module.vars.content|raw }}
+            </div>
+        {% endif %}
+        
+
+        <div class="dupa-form">
+            <form action="#" method="POST" class="dupa-form-element">
+                <div class="dupa-input-group">
+                    <input type="text" name="name" placeholder="Twoje imię" required>
+                </div>
+                <div class="dupa-input-group">
+                    <input type="email" name="email" placeholder="Twój email" required>
+                </div>
+                <div class="dupa-input-group">
+                    <textarea name="message" placeholder="Wiadomość" rows="4"></textarea>
+                </div>
+                <div class="dupa-submit">
+                    <button type="submit" class="dupa-button">Wyślij</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endif %}

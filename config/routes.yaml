@@ -9,10 +9,12 @@ elfinder:
 w3des_admin:
     resource: "@w3desAdminBundle/Controller/"
     prefix:   /admin
-    type: annotation
-    
+    type: attribute    
 
-    
 nodes:
     type: node
     resource: .
+
+controllers:
+    resource: ../src/Controller/
+    type: attribute   
